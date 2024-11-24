@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="850.0" prefWidth="1100.0" stylesheets="@../Styles/alerts.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventorymanagementsystem.Controllers.AlertsController">
+   <children>
+      <Label alignment="CENTER" layoutX="444.0" layoutY="11.0" prefHeight="29.0" prefWidth="212.0" text="Low Stock Alerts">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tableViewAlerts" layoutX="14.0" layoutY="120.0" prefHeight="696.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="columnProductId" prefWidth="115.0" text="Product ID" />
+          <TableColumn fx:id="columnProductName" prefWidth="303.0" text="Product Name" />
+            <TableColumn fx:id="columnCategory" prefWidth="268.0" text="Category" />
+            <TableColumn fx:id="columnCurrentStock" prefWidth="233.0" text="Current Stock" />
+            <TableColumn fx:id="columnMinimumStock" prefWidth="176.0" text="Minimum Required Stock" />
+        </columns>
+      </TableView>
+      <TextField fx:id="txtAlertSearch" layoutX="14.0" layoutY="90.0" prefHeight="40.0" prefWidth="290.0" promptText="Search" />
+      <ImageView fitHeight="18.0" fitWidth="22.0" layoutX="22.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/searchgrey.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

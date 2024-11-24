@@ -1,0 +1,48 @@
+.password-field, #txtOldPassword, #txtConfirmPassword, #txtNewPassword, #txtEmailPassword{
+    -fx-font-size: 14px;
+    -fx-font-family: "Monospaced";
+}
+
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #3a77ff;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: gray;
+}
+
+#btnVisibleOldPwd, #btnVisibleConfirmPwd, #btnVisibleNewPwd {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+#btnVisibleOldPwd:hover, #btnVisibleConfirmPwd:hover, #btnVisibleNewPwd:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+#btnVisibleOldPwd:pressed, #btnVisibleConfirmPwd:pressed, #btnVisibleNewPwd:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+.button {
+    -fx-background-color: #3a77ff;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-transition: all 0.3s ease;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2756b3;
+}
+
+.button:pressed {
+    -fx-background-color: #2756b3;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 4, 0.0, 0, 1);
+}
