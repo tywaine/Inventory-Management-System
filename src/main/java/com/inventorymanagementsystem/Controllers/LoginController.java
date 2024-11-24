@@ -22,7 +22,7 @@ public class LoginController implements Initializable {
     @FXML
     public PasswordField pwdPassword;
     @FXML
-    public Button btnLogin, btnVisible;
+    public Button btnLogin, btnDBConnection, btnVisible;
     @FXML
     public Label lblError;
     @FXML
@@ -89,6 +89,13 @@ public class LoginController implements Initializable {
             pwdPassword.setManaged(false);
             pwdPassword.setVisible(false);
         }
+    }
+
+    public void backToDBConnection(){
+        DataBaseManager.removeInfo();
+        Stage stage = (Stage) lblError.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showDataBaseConnectionWindow();
     }
 
     public static void removeCredentials(){

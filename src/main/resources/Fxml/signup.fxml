@@ -41,6 +41,7 @@
         <PasswordField fx:id="pwdPassword" layoutX="225.0" layoutY="210.0" prefHeight="26.0" prefWidth="361.0" promptText="Password" AnchorPane.bottomAnchor="202.0" />
         <TextField fx:id="txtPassword" layoutX="225.0" layoutY="322.0" prefHeight="26.0" prefWidth="361.0" promptText="Password" AnchorPane.bottomAnchor="202.0" />
         <CheckBox fx:id="chkPasswordVisible" layoutX="225.0" layoutY="460.0" mnemonicParsing="false" onAction="#passwordVisible" text="Show" AnchorPane.bottomAnchor="92.5" />
+        <Button fx:id="btnDBConnection" layoutX="216.0" layoutY="275.0" mnemonicParsing="false" onAction="#backToDBConnection" text="Return to DataBase Connection" textFill="WHITE" AnchorPane.bottomAnchor="1.0" />
       <TextField fx:id="txtEmail" layoutX="225.0" layoutY="130.0" prefHeight="26.0" prefWidth="361.0" promptText="Email" AnchorPane.topAnchor="130.0" />
       <Label layoutX="225.0" layoutY="100.0" prefHeight="20.0" prefWidth="137.0" text="Email:" AnchorPane.topAnchor="100.0">
          <font>

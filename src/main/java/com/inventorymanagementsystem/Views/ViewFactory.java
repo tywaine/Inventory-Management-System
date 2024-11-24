@@ -1,15 +1,14 @@
 package com.inventorymanagementsystem.Views;
 
 import com.inventorymanagementsystem.Controllers.Admin.AdminController;
+import com.inventorymanagementsystem.Controllers.DBConnectionController;
 import com.inventorymanagementsystem.Controllers.LoginController;
 import com.inventorymanagementsystem.Controllers.Staff.StaffController;
-import com.inventorymanagementsystem.Models.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -174,12 +173,6 @@ public class ViewFactory {
     public void showSignUpWindow(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/signUp.fxml"));
         createStage(loader, "Sign Up");
-        Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "First time creating a User account",
-                """
-                        Since there is no user registered in the system you will create an Account.
-                        Make sure to remember the details, specifically the EMAIL and obviously the PASSWORD.
-                        You will need them to login. THERE IS NO RECOVERY SYSTEM (As of now)
-                        You can change the password later if you like (Not yet implemented)""");
     }
 
     public void showLoginWindow(){
@@ -187,15 +180,33 @@ public class ViewFactory {
         createStage(loader);
     }
 
-    public void decideWhatToShow(){
-        if(DataBaseManager.doesUserExists()){
-            DataBaseManager.loadInfo();
-            Model.getInstance().getViewFactory().loginWindow();
-        }
-        else{
-            LoginController.removeCredentials();
-            DataBaseManager.ensureTablesExist();
-            showSignUpWindow();
+    public void showDataBaseConnectionWindow(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/DBConnection.fxml"));
+        createStage(loader);
+    }
+
+    public void dataBaseConnectionWindow() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/DBConnection.fxml"));
+        DBConnectionController dbController = null;
+
+        try {
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Database Connection");
+            stage.setResizable(false);
+
+            stage.getIcons().add(image);
+
+            stage.setOnCloseRequest(event -> {
+                onExit();
+            });
+
+            dbController = loader.getController();
+            dbController.shouldShow();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

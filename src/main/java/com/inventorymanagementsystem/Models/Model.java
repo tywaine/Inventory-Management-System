@@ -58,11 +58,13 @@ public class Model {
     }
 
     public Alert getConfirmationDialogAlert(String title, String content) {
+        // Create a confirmation alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
         alert.setHeaderText("");
         alert.setContentText(content);
 
+        // Customize button text (optional)
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
         return alert;
     }

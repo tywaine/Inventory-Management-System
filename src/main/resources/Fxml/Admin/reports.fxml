@@ -19,32 +19,32 @@
                 <TableColumn fx:id="columnSaleDate" prefWidth="206.0" text="Sale Date" />
                 <TableColumn fx:id="columnQuantitySold" prefWidth="128.0" text="Quantity Sold" />
                 <TableColumn fx:id="columnSalePrice" prefWidth="237.0" text="Sale Price" />
-            <TableColumn fx:id="columnDelete" prefWidth="49.0" text="Delete" />
+                <TableColumn fx:id="columnDelete" prefWidth="49.0" text="Delete" />
             </columns>
         </TableView>
         <Label layoutX="253.0" layoutY="733.0" text="Filter by Date (dd/MM/yyyy):" />
         <DatePicker fx:id="datePickerStart" layoutX="414.0" layoutY="727.0" prefHeight="26.0" prefWidth="147.0" promptText="dd/MM/yyyy" />
         <DatePicker fx:id="datePickerEnd" layoutX="583.0" layoutY="727.0" prefHeight="26.0" prefWidth="147.0" promptText="dd/MM/yyyy" />
         <Button fx:id="btnGeneratePDF" layoutX="450.0" layoutY="803.0" mnemonicParsing="false" onAction="#generatePDF" prefHeight="26.0" prefWidth="200.0" text="Generate PDF" />
-      <Label layoutX="414.0" layoutY="699.0" prefHeight="17.0" prefWidth="75.0" text="Start Date: ">
-         <font>
-            <Font name="System Bold Italic" size="13.0" />
-         </font>
-      </Label>
-      <Label layoutX="583.0" layoutY="699.0" prefHeight="17.0" prefWidth="75.0" text="End Date: ">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblStartDateError" layoutX="414.0" layoutY="756.0" prefHeight="17.0" prefWidth="147.0" textFill="RED">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblEndDateError" layoutX="583.0" layoutY="756.0" prefHeight="17.0" prefWidth="147.0" textFill="RED">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Label>
+        <Label layoutX="414.0" layoutY="699.0" prefHeight="17.0" prefWidth="75.0" text="Start Date: ">
+            <font>
+                <Font name="System Bold Italic" size="13.0" />
+            </font>
+        </Label>
+        <Label layoutX="583.0" layoutY="699.0" prefHeight="17.0" prefWidth="75.0" text="End Date: ">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblStartDateError" layoutX="414.0" layoutY="756.0" prefHeight="17.0" prefWidth="147.0" textFill="RED">
+            <font>
+                <Font size="12.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblEndDateError" layoutX="583.0" layoutY="756.0" prefHeight="17.0" prefWidth="147.0" textFill="RED">
+            <font>
+                <Font size="12.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>

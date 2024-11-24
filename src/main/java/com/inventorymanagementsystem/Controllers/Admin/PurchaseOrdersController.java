@@ -54,6 +54,7 @@ public class PurchaseOrdersController implements Initializable{
         columnProductName.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
         columnTotalAmount.setCellValueFactory(cellData -> cellData.getValue().totalAmountProperty());
+
         setupDeleteColumn();
 
         columnSupplierID2.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());

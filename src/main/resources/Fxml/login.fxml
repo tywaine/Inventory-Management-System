@@ -45,6 +45,7 @@
             <Font name="System Bold" size="14.0" />
         </font>
     </Label>
+    <Button fx:id="btnDBConnection" layoutX="216.0" layoutY="274.0" mnemonicParsing="false" onAction="#backToDBConnection" text="Return to DataBase Connection" textFill="WHITE" AnchorPane.bottomAnchor="1.0" />
       <CheckBox fx:id="chkSaveCredentials" layoutX="229.0" layoutY="195.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="127.0" text="Remember me" />
       <Button fx:id="btnVisible" layoutX="554.0" layoutY="150.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="26.0" />
 </children>

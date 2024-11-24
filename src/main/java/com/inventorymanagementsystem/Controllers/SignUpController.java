@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable {
-    public Button btnSignUp;
+    public Button btnSignUp, btnDBConnection;
     public TextField txtName, txtEmail, txtEmailPassword, txtPassword, txtConfirmPassword;
     public Label lblNameError, lblEmailError;
     public CheckBox chkEmailPasswordVisible, chkPasswordVisible;
@@ -114,6 +114,13 @@ public class SignUpController implements Initializable {
         Model.getInstance().getViewFactory().showLoginWindow();
         Model.getInstance().showAlert(AlertType.INFORMATION, "Login Information", "Your Login information is:\n" +
                 "ID Number: " + id + "\nEmail: " + email + "Password: <password you entered>");
+    }
+
+    public void backToDBConnection(ActionEvent actionEvent) {
+        DataBaseManager.removeInfo();
+        Stage stage = (Stage) lblNameError.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showDataBaseConnectionWindow();
     }
 
     public void passwordVisible(ActionEvent actionEvent) {
