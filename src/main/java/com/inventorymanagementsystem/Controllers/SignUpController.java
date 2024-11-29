@@ -113,7 +113,7 @@ public class SignUpController implements Initializable {
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showLoginWindow();
         Model.getInstance().showAlert(AlertType.INFORMATION, "Login Information", "Your Login information is:\n" +
-                "ID Number: " + id + "\nEmail: " + email + "Password: <password you entered>");
+                "ID Number: " + id + "\nEmail: " + email + "\nPassword: <password you entered>");
     }
 
     public void backToDBConnection(ActionEvent actionEvent) {
