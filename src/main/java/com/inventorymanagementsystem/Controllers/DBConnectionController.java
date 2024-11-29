@@ -76,12 +76,12 @@ public class DBConnectionController implements Initializable {
             Model.getInstance().getViewFactory().closeStage(stage);
             Model.getInstance().getDataBaseDriver().setConnection(connection);
 
-            if(doesUserExists(connection)){
+            if(DataBaseManager.doesAdminExists()){
                 DataBaseManager.loadInfo();
                 Model.getInstance().getViewFactory().loginWindow();
             }
             else{
-                ensureTablesExist(connection);
+                DataBaseManager.ensureTablesExist();
                 showSignUpWindow();
             }
         } catch (SQLException _) {
@@ -219,10 +219,10 @@ public class DBConnectionController implements Initializable {
 
             Stage stage = (Stage) txtUser.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
-            ensureTablesExist(connection);
+            DataBaseManager.ensureTablesExist();
             DataBaseManager.loadInfo();
 
-            if(doesUserExists(connection)){
+            if(DataBaseManager.doesAdminExists()){
                 Model.getInstance().getViewFactory().showLoginWindow();
             }
             else{
@@ -242,7 +242,7 @@ public class DBConnectionController implements Initializable {
                     url = "jdbc:mysql://" + txtHost.getText() + ':' + txtPort.getText() + "/" + comboBoxDB.getValue();
                     connection = DriverManager.getConnection(url, username, pwd);
                     Model.getInstance().getDataBaseDriver().setConnection(connection);
-                    ensureTablesExist(connection);
+                    DataBaseManager.ensureTablesExist();
                     Stage stage = (Stage) txtUser.getScene().getWindow();
                     Model.getInstance().getViewFactory().closeStage(stage);
                     saveCredentials();
@@ -258,100 +258,6 @@ public class DBConnectionController implements Initializable {
             }}
     }
 
-
-
-    private void ensureTablesExist(Connection connection) {
-        String[] createTableStatements = {
-                "CREATE TABLE IF NOT EXISTS Products (" +
-                        "product_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "name VARCHAR(100) NOT NULL, " +
-                        "category VARCHAR(50) NULL, " +
-                        "unit_price DECIMAL(10, 2) NOT NULL, " +
-                        "low_stock_amount INT NOT NULL)",
-
-                "CREATE TABLE IF NOT EXISTS Suppliers (" +
-                        "supplier_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "name VARCHAR(100) NOT NULL, " +
-                        "contact_email VARCHAR(100) NULL, " +
-                        "phone_number VARCHAR(20) NULL, " +
-                        "address TEXT NULL)",
-
-                "CREATE TABLE IF NOT EXISTS Batches (" +
-                        "batch_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "product_id INT NOT NULL, " +
-                        "current_stock INT NOT NULL, " +
-                        "expiration_date DATE NOT NULL, " +
-                        "FOREIGN KEY (product_id) REFERENCES Products(product_id))",
-
-                "CREATE TABLE IF NOT EXISTS InventoryAdjustments (" +
-                        "adjustment_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "user_id INT NOT NULL, " +
-                        "user_role ENUM('ADMIN', 'STAFF') DEFAULT 'ADMIN', " +
-                        "product_id INT NOT NULL, " +
-                        "product_name VARCHAR(100), " +
-                        "batch_id INT NULL, " +
-                        "adjustment_datetime DATETIME NOT NULL, " +
-                        "adjustment_type ENUM('ADDITION', 'DELETION', 'RESTOCK', 'SALE', 'ADJUSTMENT', 'UPDATE') NOT NULL, " +
-                        "previous_stock INT NULL, " +
-                        "adjusted_stock INT NULL)",
-
-                "CREATE TABLE IF NOT EXISTS PurchaseOrders (" +
-                        "order_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "order_date DATE NOT NULL, " +
-                        "supplier_id INT NULL, " +
-                        "supplier_name VARCHAR(100) NOT NULL, " +
-                        "product_name VARCHAR(100) NOT NULL, " +
-                        "quantity INT NOT NULL, " +
-                        "total_amount DECIMAL(10, 2) DEFAULT 0.00 NULL)",
-
-                "CREATE TABLE IF NOT EXISTS Sales (" +
-                        "sale_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "product_id INT NOT NULL, " +
-                        "product_name VARCHAR(100), " +
-                        "sale_date DATE NOT NULL, " +
-                        "quantity_sold INT NOT NULL, " +
-                        "sale_price DECIMAL(10, 2) NULL)",
-
-                "CREATE TABLE IF NOT EXISTS Users (" +
-                        "user_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "name VARCHAR(50) NOT NULL, " +
-                        "password_hash VARCHAR(255) NOT NULL, " +
-                        "role ENUM('ADMIN', 'STAFF') DEFAULT 'ADMIN' NULL, " +
-                        "email VARCHAR(100) NOT NULL, " +
-                        "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL, " +
-                        "UNIQUE (email))",
-
-                "CREATE TABLE IF NOT EXISTS Admins (" +
-                        "admin_id INT PRIMARY KEY AUTO_INCREMENT, " +
-                        "user_id INT NOT NULL UNIQUE, " +
-                        "email_password_encrypted VARCHAR(255), " +
-                        "FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE)"
-        };
-
-        String[] createIndexStatements = {
-                "CREATE INDEX product_id_idx ON Batches (product_id)"
-        };
-
-        try (Statement statement = connection.createStatement()) {
-            for (String sql : createTableStatements) {
-                statement.execute(sql);
-            }
-
-            for (String indexSql : createIndexStatements) {
-                try {
-                    statement.execute(indexSql);
-                } catch (SQLException e) {
-                    if (!e.getMessage().contains("Duplicate key name")) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void showSignUpWindow(){
         Model.getInstance().getViewFactory().showSignUpWindow();
         Model.getInstance().showAlert(AlertType.INFORMATION, "First time creating a User account",
@@ -359,24 +265,7 @@ public class DBConnectionController implements Initializable {
                         Since there is no user registered in the system you will create an Account.
                         Make sure to remember the details, specifically the EMAIL and obviously the PASSWORD.
                         You will need them to login. THERE IS NO RECOVERY SYSTEM (As of now)
-                        You can change the password later if you like (Not yet implemented)""");
-    }
-
-    public boolean doesUserExists(Connection connection) {
-        String query = "SELECT COUNT(*) FROM Users";
-
-        try(PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery()){
-
-                if (resultSet.next()) {
-                    int userCount = resultSet.getInt(1);
-                    return userCount > 0;
-                }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
+                        You can change the password later if you like""");
     }
 
     public void createDatabase(Connection connection, String dbName) {

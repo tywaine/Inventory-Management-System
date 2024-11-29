@@ -11,6 +11,7 @@ import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -54,7 +55,6 @@ public class PurchaseOrdersController implements Initializable{
         columnProductName.setCellValueFactory(cellData -> cellData.getValue().productNameProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
         columnTotalAmount.setCellValueFactory(cellData -> cellData.getValue().totalAmountProperty());
-
         setupDeleteColumn();
 
         columnSupplierID2.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
@@ -75,6 +75,7 @@ public class PurchaseOrdersController implements Initializable{
 
         txtQuantity.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
         txtUnitPrice.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
+        comboBoxProductName.getEditor().textProperty().addListener((observable, oldValue, newValue) -> validateFields());
         comboBoxProductName.valueProperty().addListener((observable, oldValue, newValue) -> validateFields());
         txtSupplierName.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
         txtSupplierEmail.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
@@ -83,7 +84,7 @@ public class PurchaseOrdersController implements Initializable{
     private void onlyDigits(TextField textField){
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                textField.setText(newValue.replaceAll("[^\\d]", ""));
+                textField.setText(newValue.replaceAll("\\D", ""));
             }
         });
     }
@@ -235,23 +236,7 @@ public class PurchaseOrdersController implements Initializable{
         Supplier supplier = tableViewSuppliers.getSelectionModel().getSelectedItem();
         String productName = comboBoxProductName.getValue();
         int quantity = Integer.parseInt(txtQuantity.getText());
-        BigDecimal totalAmount = BigDecimal.valueOf(Float.parseFloat(txtTotalAmount.getText()));
-
-        DataBaseManager.addPurchaseOrder(
-                LocalDate.now(),
-                supplier.ID,
-                supplier.getName(),
-                productName,
-                quantity,
-                totalAmount);
-
-        int id = DataBaseManager.getLastPurchaseOrderID();
-
-        if(PurchaseOrder.contains(id)){
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Purchase Order Added",
-                     "Purchase Order has been added\n\nID: " + id);
-        }
-
+        BigDecimal totalAmount = BigDecimal.valueOf(Float.parseFloat(txtTotalAmount.getText())).setScale(2, RoundingMode.HALF_UP);
         User admin = Model.getInstance().getCurrentUser();
         String adminEmailPassword = DataBaseManager.getAdminEmailPassword(admin);
         String purchaseOrderMessage = String.format(
@@ -279,15 +264,25 @@ public class PurchaseOrdersController implements Initializable{
                 admin.getName()
         );
 
-        MyEmail.sendEmail(
-                admin.getEmail(),
-                adminEmailPassword,
-                supplier.getContactEmail(),
-                "New Purchase Order",
-                purchaseOrderMessage);
+        if(MyEmail.sendEmail(admin.getEmail(), adminEmailPassword, supplier.getContactEmail(),
+                "New Purchase Order", purchaseOrderMessage)){
+            DataBaseManager.addPurchaseOrder(
+                    LocalDate.now(),
+                    supplier.ID,
+                    supplier.getName(),
+                    productName,
+                    quantity,
+                    totalAmount);
+            int id = DataBaseManager.getLastPurchaseOrderID();
 
-        tableViewSuppliers.getSelectionModel().clearSelection();
-        clearFields();
-        btnSendPurchaseOrder.setDisable(true);
+            if(PurchaseOrder.contains(id)){
+                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Purchase Order Added",
+                        "Purchase Order has been added\n\nID: " + id);
+            }
+
+            tableViewSuppliers.getSelectionModel().clearSelection();
+            clearFields();
+            btnSendPurchaseOrder.setDisable(true);
+        }
     }
 }

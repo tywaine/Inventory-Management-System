@@ -47,6 +47,7 @@ public class SuppliersController implements Initializable {
         txtLastName.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
         txtContactEmail.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
         txtPhoneNumber.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
+        txtAreaAddress.textProperty().addListener((observable, oldValue, newValue) -> validateFields());
 
         columnSupplierID.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         columnName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -390,11 +391,13 @@ public class SuppliersController implements Initializable {
         String lastName = supplier.getLastName();
         String email = supplier.getContactEmail();
         String phoneNumber = supplier.getPhoneNumber();
+        String address = supplier.getAddress();
 
         if (txtFirstName.getText().equals(firstName)
                 && txtLastName.getText().equals(lastName)
                 && txtContactEmail.getText().equals(email)
-                && txtPhoneNumber.getText().equals(phoneNumber)) {
+                && txtPhoneNumber.getText().equals(phoneNumber)
+                && txtAreaAddress.getText().equals(address)) {
             System.out.println("No fields have been changed.");
             return false;
         }
@@ -422,9 +425,11 @@ public class SuppliersController implements Initializable {
         String lastName = supplier.getLastName();
         String email = supplier.getContactEmail();
         String phoneNumber = supplier.getPhoneNumber();
+        String address = supplier.getAddress();
 
         return txtFirstName.getText().equals(firstName) && txtLastName.getText().equals(lastName)
-                && txtContactEmail.getText().equals(email) && txtPhoneNumber.getText().equals(phoneNumber);
+                && txtContactEmail.getText().equals(email) && txtPhoneNumber.getText().equals(phoneNumber)
+                && txtAreaAddress.getText().equals(address);
     }
 
     public void clearFields() {
@@ -520,6 +525,7 @@ public class SuppliersController implements Initializable {
             txtLastName.setText(supplier.getLastName());
             txtContactEmail.setText(supplier.getContactEmail());
             txtPhoneNumber.setText(supplier.getPhoneNumber());
+            txtAreaAddress.setText(supplier.getAddress());
             lblFirstNameError.setText("");
             lblLastNameError.setText("");
 

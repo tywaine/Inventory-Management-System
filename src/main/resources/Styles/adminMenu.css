@@ -42,6 +42,15 @@
     -fx-text-fill: black;
 }
 
+.button-selected {
+    -fx-background-color: #61AFEF;
+    -fx-text-fill: black;
+}
+
+.button-selected:hover{
+    -fx-background-color: #61AFEF;
+}
+
 #btnSignOut {
     -fx-background-color: #E06C75;
     -fx-text-fill: white;

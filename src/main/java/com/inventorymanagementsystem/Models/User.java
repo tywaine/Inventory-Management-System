@@ -54,10 +54,6 @@ public class User {
         return role.get();
     }
 
-    public void setRole(String role) {
-        this.role.set(role);
-    }
-
     public StringProperty roleProperty() {
         return role;
     }
@@ -99,7 +95,18 @@ public class User {
     }
 
     public static boolean isValidName(String name) {
-        return name.matches("^[A-Za-z]+$");
+        String[] names = name.trim().split(" ");
+
+        if(names.length == 1){
+            return names[0].matches("^[A-Za-z]+$");
+        }
+
+        if(names.length == 2){
+            return names[0].matches("^[A-Za-z]+$") &&
+                    names[1].matches("^[A-Za-z]+$");
+        }
+
+        return false;
     }
 
     public static boolean isValidEmail(String email) {
@@ -161,10 +168,6 @@ public class User {
 
     public static boolean validStaff(User staff){
         return staff != null && containsStaff(staff.ID);
-    }
-
-    public static int getStaffCount() {
-        return staffs.size();
     }
 
     public static boolean containsStaff(int staffID) {

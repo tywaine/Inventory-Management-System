@@ -77,12 +77,6 @@
     -fx-prompt-text-fill: gray;
 }
 
-#txtAreaAddress{
-    -fx-background-color: transparent;
-    -fx-border-width: 1;
-    -fx-control-inner-background: transparent;
-}
-
 .button {
     -fx-background-color: #3a77ff;
     -fx-background-radius: 15;

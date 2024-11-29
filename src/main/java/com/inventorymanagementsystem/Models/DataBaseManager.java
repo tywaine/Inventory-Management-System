@@ -2,6 +2,10 @@ package com.inventorymanagementsystem.Models;
 
 import javafx.scene.control.Alert.AlertType;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
@@ -1145,6 +1149,59 @@ public class DataBaseManager {
         }
 
         return null;
+    }
+
+    public static boolean doesAdminExists() {
+        Connection connection = Model.getInstance().getDataBaseDriver().getConnection();
+        String query = "SELECT COUNT(*) FROM Users WHERE role = 'ADMIN'";
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery()){
+
+            if (resultSet.next()) {
+                int userCount = resultSet.getInt(1);
+                return userCount > 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Does Admin Exist Error: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public static void ensureTablesExist() {
+        Connection connection = Model.getInstance().getDataBaseDriver().getConnection();
+
+        try (InputStream inputStream = DataBaseManager.class.getResourceAsStream("/create_tables.sql")) {
+            assert inputStream != null;
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                 Statement statement = connection.createStatement()) {
+
+                StringBuilder sqlBuilder = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    if (line.trim().isEmpty() || line.trim().startsWith("--")) {
+                        continue;
+                    }
+
+                    sqlBuilder.append(line.trim()).append(" ");
+
+                    if (line.trim().endsWith(";")) {
+                        statement.execute(sqlBuilder.toString());
+                        sqlBuilder.setLength(0);
+                    }
+                }
+
+                if (!sqlBuilder.isEmpty()) {
+                    statement.execute(sqlBuilder.toString());
+                }
+
+            }
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+            System.out.println("Ensure Tables Exists Eror: " + e.getMessage());
+        }
     }
 
     private static void addMessage(String tableName, int rowsAdded){

@@ -61,11 +61,11 @@ public class HistoryController implements Initializable {
                     || inventoryAdjustment.getUserRole().toLowerCase().contains(searchText)
                     || String.valueOf(inventoryAdjustment.getProductId()).contains(searchText)
                     || inventoryAdjustment.getProductName().toLowerCase().contains(searchText)
-                    || String.valueOf(inventoryAdjustment.getBatchId()).contains(searchText)
+                    || inventoryAdjustment.getBatchIdString().toLowerCase().contains(searchText)
                     || String.valueOf(inventoryAdjustment.getAdjustmentDatetimeFormatted()).contains(searchText)
                     || inventoryAdjustment.getAdjustmentType().toLowerCase().contains(searchText)
-                    || String.valueOf(inventoryAdjustment.getPrevious_stock()).contains(searchText)
-                    || String.valueOf(inventoryAdjustment.getAdjusted_stock()).contains(searchText);
+                    || inventoryAdjustment.getPrevious_stockString().toLowerCase().contains(searchText)
+                    || inventoryAdjustment.getAdjusted_stockString().toLowerCase().contains(searchText);
         });
     }
 

@@ -136,6 +136,13 @@ public class Product {
             products.put(product.ID, product);
             productList.add(product);
             productNameList.add(product.getName());
+
+            for (String s : categoryList) {
+                if (s.equalsIgnoreCase(product.getCategory())) {
+                    return;
+                }
+            }
+
             categoryList.add(product.getCategory());
         }
         else if(product == null){
@@ -200,16 +207,18 @@ public class Product {
         return product != null && contains(product.ID);
     }
 
-    public static int getProductCount() {
-        return products.size();
-    }
-
     public static boolean contains(int productID) {
         return products.containsKey(productID);
     }
 
     public static boolean containsName(String productName){
-        return productNameList.contains(productName);
+        for(String name: productNameList){
+            if(productName.equalsIgnoreCase(name)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static ObservableList<Product> getList(){

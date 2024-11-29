@@ -19,14 +19,14 @@
             <TableColumn fx:id="columnName" prefWidth="215.0" text="Name" />
             <TableColumn fx:id="columnEmail" prefWidth="193.0" text="Contact Email" />
             <TableColumn fx:id="columnPhoneNumber" prefWidth="124.0" text="Phone Number" />
-            <TableColumn fx:id="columnAddress" prefWidth="474.0" text="Address" />
+            <TableColumn fx:id="columnAddress" prefWidth="472.0" text="Address" />
         </columns>
     </TableView>
     <TextField fx:id="txtSupplierSearch" layoutX="13.0" layoutY="65.0" prefHeight="41.0" prefWidth="383.0" promptText="Search" />
     <ImageView fitHeight="16.0" fitWidth="27.0" layoutX="22.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../../Images/searchgrey.png" />
-      </image></ImageView>
+        <image>
+            <Image url="@../../Images/searchgrey.png" />
+        </image></ImageView>
     <Label alignment="CENTER" layoutY="15.0" prefHeight="29.0" prefWidth="1000.0" text="Supplier Details" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <font>
             <Font name="System Bold" size="24.0" />
@@ -85,15 +85,20 @@
             <Font size="12.0" />
         </font>
     </Label>
-   <TextArea fx:id="txtAreaAddress" layoutX="366.0" layoutY="670.0" prefHeight="95.0" prefWidth="270.0" promptText="Address" />
-   <Label layoutX="366.0" layoutY="640.0" prefHeight="17.0" prefWidth="270.0" text="Address: ">
-      <font>
-         <Font size="18.0" />
-      </font>
-   </Label>
-   <Label layoutX="487.0" layoutY="575.0" text="*###-####">
-      <font>
-         <Font size="10.0" />
-      </font>
-   </Label>
+    <TextArea fx:id="txtAreaAddress" layoutX="366.0" layoutY="670.0" prefHeight="95.0" prefWidth="270.0" promptText="Address" />
+    <Label layoutX="366.0" layoutY="640.0" prefHeight="17.0" prefWidth="270.0" text="Address: ">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
+    <Label layoutX="487.0" layoutY="575.0" text="*###-####">
+        <font>
+            <Font size="10.0" />
+        </font>
+    </Label>
+    <Label layoutX="436.0" layoutY="643.0" prefHeight="17.0" prefWidth="65.0" text="*optional">
+        <font>
+            <Font size="11.0" />
+        </font>
+    </Label>
 </AnchorPane>

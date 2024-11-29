@@ -5,6 +5,7 @@ import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Views.AdminMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -15,11 +16,14 @@ import java.util.ResourceBundle;
 public class AdminMenuController implements Initializable {
     public Button btnViewInventory, btnInventoryBatch, btnAlerts, btnManageStaff, btnSuppliers,
             btnPurchaseOrders, btnReports, btnHistory, btnAccount, btnSignOut;
+    public Label lblRole;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblRole.setText("ID Number: " + Model.getInstance().getCurrentUser().ID);
         setIcons();
         addListeners();
+        btnViewInventory.getStyleClass().add("button-selected");
     }
 
     private void setIcons() {
@@ -42,53 +46,37 @@ public class AdminMenuController implements Initializable {
         return icon;
     }
 
-    private void addListeners(){
-        btnViewInventory.setOnAction(event -> onViewInventory());
-        btnInventoryBatch.setOnAction(event -> onInventoryBatch());
-        btnAlerts.setOnAction(event -> onAlerts());
-        btnManageStaff.setOnAction(event -> onManageStaff());
-        btnSuppliers.setOnAction(event -> onSuppliers());
-        btnPurchaseOrders.setOnAction(event -> onPurchaseOrders());
-        btnReports.setOnAction(event -> onReports());
-        btnHistory.setOnAction(event -> onHistory());
-        btnAccount.setOnAction(event -> onAccount());
+    private void addListeners() {
+        addButtonListener(btnViewInventory, AdminMenuOptions.VIEW_INVENTORY);
+        addButtonListener(btnInventoryBatch, AdminMenuOptions.INVENTORY_BATCHES);
+        addButtonListener(btnAlerts, AdminMenuOptions.ALERTS);
+        addButtonListener(btnManageStaff, AdminMenuOptions.MANAGE_STAFF);
+        addButtonListener(btnSuppliers, AdminMenuOptions.SUPPLIERS);
+        addButtonListener(btnPurchaseOrders, AdminMenuOptions.PURCHASE_ORDERS);
+        addButtonListener(btnReports, AdminMenuOptions.REPORTS);
+        addButtonListener(btnHistory, AdminMenuOptions.HISTORY);
+        addButtonListener(btnAccount, AdminMenuOptions.ACCOUNT);
         btnSignOut.setOnAction(event -> onSignOut());
     }
 
-    private void onViewInventory(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.VIEW_INVENTORY);
+    private void addButtonListener(Button button, AdminMenuOptions menuOption) {
+        button.setOnAction(event -> {
+            clearButtonStyles();
+            button.getStyleClass().add("button-selected");
+            Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(menuOption);
+        });
     }
 
-    private void onInventoryBatch(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.INVENTORY_BATCHES);
-    }
-
-    private void onAlerts(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.ALERTS);
-    }
-
-    private void onManageStaff(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.MANAGE_STAFF);
-    }
-
-    private void onSuppliers(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.SUPPLIERS);
-    }
-
-    private void onPurchaseOrders(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.PURCHASE_ORDERS);
-    }
-
-    private void onReports(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.REPORTS);
-    }
-
-    private void onHistory(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.HISTORY);
-    }
-
-    private void onAccount(){
-        Model.getInstance().getViewFactory().getAdminSelectedMenuItem().set(AdminMenuOptions.ACCOUNT);
+    private void clearButtonStyles() {
+        btnViewInventory.getStyleClass().remove("button-selected");
+        btnInventoryBatch.getStyleClass().remove("button-selected");
+        btnAlerts.getStyleClass().remove("button-selected");
+        btnManageStaff.getStyleClass().remove("button-selected");
+        btnSuppliers.getStyleClass().remove("button-selected");
+        btnPurchaseOrders.getStyleClass().remove("button-selected");
+        btnReports.getStyleClass().remove("button-selected");
+        btnHistory.getStyleClass().remove("button-selected");
+        btnAccount.getStyleClass().remove("button-selected");
     }
 
     private void onSignOut(){

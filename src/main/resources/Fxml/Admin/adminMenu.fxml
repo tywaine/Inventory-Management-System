@@ -8,58 +8,63 @@
 <?import javafx.scene.text.Text?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="250.0" styleClass="main_menu_container" stylesheets="@../../Styles/adminMenu.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventorymanagementsystem.Controllers.Admin.AdminMenuController">
-<children>
-    <AnchorPane prefHeight="830.0" prefWidth="230.0" styleClass="title_container">
-        <children>
-            <VBox alignment="CENTER" layoutY="-1.0" prefHeight="80.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <children>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inventory Management" wrappingWidth="159.82081604003906" />
-                </children>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="25.0" layoutY="190.0" prefHeight="569.0" prefWidth="200.0" styleClass="menu_container" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="180.0">
-                <children>
-                    <Button fx:id="btnViewInventory" mnemonicParsing="false" text="View Inventory" />
-                  <Button fx:id="btnInventoryBatch" mnemonicParsing="false" text="Inventory Batch" />
-                  <Button fx:id="btnHistory" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="History">
-                     <font>
-                        <Font name="System Bold" size="10.0" />
-                     </font>
-                  </Button>
-                    <Button fx:id="btnAlerts" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Low Stock Alerts">
-                        <font>
-                            <Font name="System Bold" size="10.0" />
-                        </font>
-                    </Button>
-                  <Button fx:id="btnManageStaff" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Manage Staff">
-                     <font>
-                        <Font name="System Bold" size="10.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnSuppliers" mnemonicParsing="false" text="Suppliers" />
-                    <Button fx:id="btnPurchaseOrders" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Purchase Orders">
-                        <font>
-                            <Font name="System Bold" size="10.0" />
-                        </font>
-                    </Button>
-                  <Button fx:id="btnReports" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Sales Report">
-                     <font>
-                        <Font name="System Bold" size="10.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnAccount" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Account">
-                     <font>
-                        <Font name="System Bold" size="10.0" />
-                     </font>
-                  </Button>
-                </children>
-            </VBox>
-            <Button fx:id="btnSignOut" layoutX="10.0" layoutY="779.0" mnemonicParsing="false" prefWidth="113.0" text="Sign Out" AnchorPane.bottomAnchor="20.0" />
-            <Label alignment="CENTER" layoutX="59.0" layoutY="90.0" prefHeight="17.0" prefWidth="103.0" text="Admin" textFill="#949494" underline="true">
-                <font>
-                    <Font name="System Bold Italic" size="13.0" />
-                </font>
-            </Label>
-        </children>
-    </AnchorPane>
-</children>
+    <children>
+        <AnchorPane prefHeight="830.0" prefWidth="230.0" styleClass="title_container">
+            <children>
+                <VBox alignment="CENTER" layoutY="-1.0" prefHeight="80.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inventory Management" wrappingWidth="159.82081604003906" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="25.0" layoutY="190.0" prefHeight="569.0" prefWidth="200.0" styleClass="menu_container" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="180.0">
+                    <children>
+                        <Button fx:id="btnViewInventory" mnemonicParsing="false" text="View Inventory" />
+                        <Button fx:id="btnInventoryBatch" mnemonicParsing="false" text="Inventory Batch" />
+                        <Button fx:id="btnHistory" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="History">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnAlerts" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Low Stock Alerts">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnManageStaff" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Manage Staff">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnSuppliers" mnemonicParsing="false" text="Suppliers" />
+                        <Button fx:id="btnPurchaseOrders" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Purchase Orders">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnReports" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Sales Report">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="btnAccount" mnemonicParsing="false" prefHeight="33.0" prefWidth="142.0" text="Account">
+                            <font>
+                                <Font name="System Bold" size="10.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
+                <Button fx:id="btnSignOut" layoutX="10.0" layoutY="779.0" mnemonicParsing="false" prefWidth="113.0" text="Sign Out" AnchorPane.bottomAnchor="20.0" />
+                <Label alignment="CENTER" layoutX="60.0" layoutY="82.0" prefHeight="17.0" prefWidth="103.0" text="ADMIN" textFill="LIGHTGRAY" underline="true">
+                    <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblRole" alignment="CENTER" layoutX="6.0" layoutY="140.0" prefHeight="17.0" prefWidth="78.0" textFill="WHITE" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="14.0">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>

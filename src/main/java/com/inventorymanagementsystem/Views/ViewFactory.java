@@ -51,7 +51,7 @@ public class ViewFactory {
     public AnchorPane getViewInventoryView(){
         if(viewInventoryView == null){
             try{
-                viewInventoryView = new FXMLLoader(getClass().getResource("/Fxml/viewInventory.fxml")).load();
+                viewInventoryView = new FXMLLoader(getClass().getResource("/Fxml/viewInventoryView.fxml")).load();
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -63,7 +63,7 @@ public class ViewFactory {
     public AnchorPane getInventoryBatchesView(){
         if(inventoryBatchesView == null){
             try{
-                inventoryBatchesView = new FXMLLoader(getClass().getResource("/Fxml/inventoryBatches.fxml")).load();
+                inventoryBatchesView = new FXMLLoader(getClass().getResource("/Fxml/inventoryBatchesView.fxml")).load();
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -75,7 +75,7 @@ public class ViewFactory {
     public AnchorPane getAlertsView(){
         if(alertsView == null){
             try{
-                alertsView = new FXMLLoader(getClass().getResource("/Fxml/alerts.fxml")).load();
+                alertsView = new FXMLLoader(getClass().getResource("/Fxml/alertsView.fxml")).load();
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -87,7 +87,7 @@ public class ViewFactory {
     public AnchorPane getManageStaffView(){
         if(manageStaffView == null){
             try{
-                manageStaffView = new FXMLLoader(getClass().getResource("/Fxml/Admin/manageStaff.fxml")).load();
+                manageStaffView = new FXMLLoader(getClass().getResource("/Fxml/Admin/manageStaffView.fxml")).load();
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -99,7 +99,7 @@ public class ViewFactory {
     public AnchorPane getSuppliersView(){
         if(suppliersView == null){
             try{
-                suppliersView = new FXMLLoader(getClass().getResource("/Fxml/Admin/suppliers.fxml")).load();
+                suppliersView = new FXMLLoader(getClass().getResource("/Fxml/Admin/suppliersView.fxml")).load();
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -111,7 +111,7 @@ public class ViewFactory {
     public AnchorPane getPurchaseOrdersView(){
         if(purchaseOrdersView == null){
             try{
-                purchaseOrdersView = new FXMLLoader(getClass().getResource("/Fxml/Admin/purchaseOrders.fxml")).load();
+                purchaseOrdersView = new FXMLLoader(getClass().getResource("/Fxml/Admin/purchaseOrdersView.fxml")).load();
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -123,7 +123,7 @@ public class ViewFactory {
     public AnchorPane getReportsView(){
         if(reportsView == null){
             try{
-                reportsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/reports.fxml")).load();
+                reportsView = new FXMLLoader(getClass().getResource("/Fxml/Admin/reportsView.fxml")).load();
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -171,12 +171,12 @@ public class ViewFactory {
     }
 
     public void showSignUpWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/signUp.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/signUpView.fxml"));
         createStage(loader, "Sign Up");
     }
 
     public void showLoginWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/loginView.fxml"));
         createStage(loader);
     }
 
@@ -211,7 +211,7 @@ public class ViewFactory {
     }
 
     public void loginWindow(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/loginView.fxml"));
         LoginController loginController = null;
 
         try {
