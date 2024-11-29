@@ -33,10 +33,6 @@ public class Model {
         this.user = user;
     }
 
-    public void setCurrentUser(int userId, String name, String role, String email, LocalDateTime createdAt){
-        this.user = new User(userId, name, role, email, createdAt);
-    }
-
     public ViewFactory getViewFactory(){
         return viewFactory;
     }

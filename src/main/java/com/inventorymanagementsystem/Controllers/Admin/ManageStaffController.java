@@ -490,7 +490,7 @@ public class ManageStaffController implements Initializable {
 
             btnClearSelection.setDisable(false);
 
-            lblStaffID.setText("Supplier ID: " + staff.ID);
+            lblStaffID.setText("Staff ID: " + staff.ID);
 
             if(btnStaffCommand.getText().equals("Update Staff")){
                 btnStaffCommand.setDisable(true);

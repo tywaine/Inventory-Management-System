@@ -128,10 +128,6 @@ public class Batch {
         return batch != null && contains(batch.ID);
     }
 
-    public static int getBatchCount() {
-        return batches.size();
-    }
-
     public static boolean contains(int batchID) {
         return batches.containsKey(batchID);
     }

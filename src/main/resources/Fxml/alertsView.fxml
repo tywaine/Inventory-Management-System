@@ -22,7 +22,7 @@
           <TableColumn fx:id="columnProductName" prefWidth="303.0" text="Product Name" />
             <TableColumn fx:id="columnCategory" prefWidth="268.0" text="Category" />
             <TableColumn fx:id="columnCurrentStock" prefWidth="233.0" text="Current Stock" />
-            <TableColumn fx:id="columnMinimumStock" prefWidth="176.0" text="Minimum Required Stock" />
+            <TableColumn fx:id="columnMinimumStock" prefWidth="176.0" text="Low Stock Amount" />
         </columns>
       </TableView>
       <TextField fx:id="txtAlertSearch" layoutX="14.0" layoutY="90.0" prefHeight="40.0" prefWidth="290.0" promptText="Search" />

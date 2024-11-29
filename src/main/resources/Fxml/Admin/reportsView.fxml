@@ -19,7 +19,7 @@
                 <TableColumn fx:id="columnSaleDate" prefWidth="206.0" text="Sale Date" />
                 <TableColumn fx:id="columnQuantitySold" prefWidth="128.0" text="Quantity Sold" />
                 <TableColumn fx:id="columnSalePrice" prefWidth="237.0" text="Sale Price" />
-            <TableColumn fx:id="columnDelete" prefWidth="49.0" text="Delete" />
+            <TableColumn fx:id="columnDelete" prefWidth="48.0" text="Delete" />
             </columns>
         </TableView>
         <Label layoutX="253.0" layoutY="733.0" text="Filter by Date (dd/MM/yyyy):" />

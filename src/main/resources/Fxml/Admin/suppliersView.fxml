@@ -19,7 +19,7 @@
             <TableColumn fx:id="columnName" prefWidth="215.0" text="Name" />
             <TableColumn fx:id="columnEmail" prefWidth="193.0" text="Contact Email" />
             <TableColumn fx:id="columnPhoneNumber" prefWidth="124.0" text="Phone Number" />
-            <TableColumn fx:id="columnAddress" prefWidth="474.0" text="Address" />
+            <TableColumn fx:id="columnAddress" prefWidth="472.0" text="Address" />
         </columns>
     </TableView>
     <TextField fx:id="txtSupplierSearch" layoutX="13.0" layoutY="65.0" prefHeight="41.0" prefWidth="383.0" promptText="Search" />
@@ -94,6 +94,11 @@
    <Label layoutX="487.0" layoutY="575.0" text="*###-####">
       <font>
          <Font size="10.0" />
+      </font>
+   </Label>
+   <Label layoutX="436.0" layoutY="643.0" prefHeight="17.0" prefWidth="65.0" text="*optional">
+      <font>
+         <Font size="11.0" />
       </font>
    </Label>
 </AnchorPane>

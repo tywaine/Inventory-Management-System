@@ -5,6 +5,7 @@ import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Views.StaffMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -14,11 +15,14 @@ import java.util.ResourceBundle;
 
 public class StaffMenuController implements Initializable {
     public Button btnViewInventory, btnInventoryBatch, btnAlerts, btnHistory, btnSignOut;
+    public Label lblRole;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblRole.setText("ID Number: " + Model.getInstance().getCurrentUser().ID);
         setIcons();
         addListeners();
+        btnViewInventory.getStyleClass().add("button-selected");
     }
 
     private void setIcons() {
@@ -36,28 +40,27 @@ public class StaffMenuController implements Initializable {
         return icon;
     }
 
-    private void addListeners(){
-        btnViewInventory.setOnAction(event -> onViewInventory());
-        btnInventoryBatch.setOnAction(event -> onInventoryBatch());
-        btnAlerts.setOnAction(event -> onAlerts());
-        btnHistory.setOnAction(event -> onHistory());
+    private void addListeners() {
+        addButtonListener(btnViewInventory, StaffMenuOptions.VIEW_INVENTORY);
+        addButtonListener(btnInventoryBatch, StaffMenuOptions.INVENTORY_BATCHES);
+        addButtonListener(btnAlerts, StaffMenuOptions.ALERTS);
+        addButtonListener(btnHistory, StaffMenuOptions.HISTORY);
         btnSignOut.setOnAction(event -> onSignOut());
     }
 
-    private void onViewInventory(){
-        Model.getInstance().getViewFactory().getStaffSelectedMenuItem().set(StaffMenuOptions.VIEW_INVENTORY);
+    private void addButtonListener(Button button, StaffMenuOptions menuOption) {
+        button.setOnAction(event -> {
+            clearButtonStyles();
+            button.getStyleClass().add("button-selected");
+            Model.getInstance().getViewFactory().getStaffSelectedMenuItem().set(menuOption);
+        });
     }
 
-    private void onInventoryBatch(){
-        Model.getInstance().getViewFactory().getStaffSelectedMenuItem().set(StaffMenuOptions.INVENTORY_BATCHES);
-    }
-
-    private void onAlerts(){
-        Model.getInstance().getViewFactory().getStaffSelectedMenuItem().set(StaffMenuOptions.ALERTS);
-    }
-
-    private void onHistory(){
-        Model.getInstance().getViewFactory().getStaffSelectedMenuItem().set(StaffMenuOptions.HISTORY);
+    private void clearButtonStyles() {
+        btnViewInventory.getStyleClass().remove("button-selected");
+        btnInventoryBatch.getStyleClass().remove("button-selected");
+        btnAlerts.getStyleClass().remove("button-selected");
+        btnHistory.getStyleClass().remove("button-selected");
     }
 
     private void onSignOut(){

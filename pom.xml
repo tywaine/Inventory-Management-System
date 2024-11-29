@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com</groupId>
-    <artifactId>Inventory-Management-System</artifactId>
+    <artifactId>Inventory-Mangement-System</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Inventory-Management-System</name>
+    <name>Inventory-Mangement-System</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

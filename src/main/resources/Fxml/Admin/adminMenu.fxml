@@ -54,10 +54,15 @@
                 </children>
             </VBox>
             <Button fx:id="btnSignOut" layoutX="10.0" layoutY="779.0" mnemonicParsing="false" prefWidth="113.0" text="Sign Out" AnchorPane.bottomAnchor="20.0" />
-            <Label alignment="CENTER" layoutX="59.0" layoutY="90.0" prefHeight="17.0" prefWidth="103.0" text="Admin" textFill="#949494" underline="true">
+            <Label alignment="CENTER" layoutX="60.0" layoutY="82.0" prefHeight="17.0" prefWidth="103.0" text="ADMIN" textFill="LIGHTGRAY" underline="true">
                 <font>
                     <Font name="System Bold Italic" size="13.0" />
                 </font>
+            </Label>
+            <Label fx:id="lblRole" alignment="CENTER" layoutX="6.0" layoutY="140.0" prefHeight="17.0" prefWidth="78.0" textFill="WHITE" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="14.0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
             </Label>
         </children>
     </AnchorPane>

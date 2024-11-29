@@ -131,6 +131,30 @@ public class InventoryBatchesController implements Initializable {
         validateFields();
     }
 
+    private void checkExpirationDate(){
+        String expirationDate = dateExpirationDate.getEditor().getText();
+
+        if(expirationDate.isEmpty()){
+            return;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try {
+            LocalDate date = LocalDate.parse(expirationDate, formatter);
+
+            if (date.isAfter(LocalDate.now())) {
+                lblExpirationDateError.setText("");
+                dateExpirationDate.setValue(date);
+            } else {
+                lblExpirationDateError.setText("Date is before or equal to the current date.");
+            }
+        } catch (DateTimeException e) {
+            System.err.println("Error: " + e.getMessage());
+            lblExpirationDateError.setText("Not a valid date.");
+        }
+    }
+
     private void handleExpirationDateKeyReleased(KeyEvent keyEvent) {
         String expirationDate = dateExpirationDate.getEditor().getText();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -206,6 +230,8 @@ public class InventoryBatchesController implements Initializable {
     }
 
     private void validateFields() {
+        checkExpirationDate();
+
         if (comboBoxBatchCommands.getValue().equals("Add")) {
             btnBatchCommand.setDisable(!allFieldsValidForAdd());
         }
@@ -329,66 +355,72 @@ public class InventoryBatchesController implements Initializable {
         int currentStock = Integer.parseInt(txtStockAmount.getText());
         LocalDate currentDate = LocalDate.now();
 
-        if(product.getStockCount() < currentStock){
-            Model.getInstance().showAlert(Alert.AlertType.ERROR, "Entered Amount is greater than Product Stock Count",
-                    "Enter stock amount to sell is greater than product stock Count\n" +
-                            "Product Stock Count: " + product.getStockCount());
-            return;
-        }
+        Alert alert = Model.getInstance().getConfirmationDialogAlert("Sell Batch?",
+                "Are you sure you want to sell this product.\n" + "Product Name: " + product.getName() +
+                        "\nAmount: " + currentStock);
 
-        int count = 0;
-        int stockAmountSold = 0;
-
-        while(!batchList.isEmpty() && currentStock >= batchList.getFirst().getCurrentStock()){
-            if(batchList.getFirst().getExpirationDate().isBefore(currentDate)){
-                Model.getInstance().showAlert(Alert.AlertType.ERROR, "Cannot Sell Batch",
-                        "Batch with ID: " + batchList.getFirst().ID + " cannot be sold since the expiration date has passed.\n" +
-                                "Update the batch if you entered the wrong information or delete it!!");
-                break;
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            if(product.getStockCount() < currentStock){
+                Model.getInstance().showAlert(Alert.AlertType.ERROR, "Entered Amount is greater than the product Total Stock Count",
+                        "Enter stock amount to sell is greater than product total stock Count\n" +
+                                "Product Total Stock Count: " + product.getStockCount());
+                return;
             }
 
-            Batch batch = batchList.removeFirst();
-            currentStock =- batch.getCurrentStock();
-            stockAmountSold += batch.getCurrentStock();
-            DataBaseManager.deleteBatch(batch);
-            count++;
-        }
+            int count = 0;
+            int stockAmountSold = 0;
 
-        if(!batchList.isEmpty() && currentStock < batchList.getFirst().getCurrentStock() &&
-                batchList.getFirst().getExpirationDate().isAfter(currentDate)){
-            Batch batch = batchList.getFirst();
-            DataBaseManager.updateBatch(batch, product.ID, batch.getCurrentStock() - currentStock, batch.getExpirationDate());
-            stockAmountSold += currentStock;
-            count++;
-        }
+            while(!batchList.isEmpty() && currentStock >= batchList.getFirst().getCurrentStock()){
+                if(batchList.getFirst().getExpirationDate().isBefore(currentDate)){
+                    Model.getInstance().showAlert(Alert.AlertType.ERROR, "Cannot Sell Batch",
+                            "Batch with ID: " + batchList.getFirst().ID + " cannot be sold since the expiration date has passed.\n" +
+                                    "Update the batch if you entered the wrong information or delete it!!");
+                    break;
+                }
 
-        if(count > 0){
-            DataBaseManager.addSale(
-                    product.ID,
-                    product.getName(),
-                    currentDate,
-                    stockAmountSold,
-                    product.getUnitPrice());
+                Batch batch = batchList.removeFirst();
+                currentStock -= batch.getCurrentStock();
+                stockAmountSold += batch.getCurrentStock();
+                DataBaseManager.deleteBatch(batch);
+                count++;
+            }
 
-            DataBaseManager.addInventoryAdjustment(
-                    Model.getInstance().getCurrentUser().ID,
-                    Model.getInstance().getCurrentUser().getRole(),
-                    product.ID,
-                    product.getName(),
-                    -1,
-                    LocalDateTime.now(),
-                    "SALE",
-                    product.getStockCount(),
-                    product.calculateStockCount()
-            );
+            if(!batchList.isEmpty() && currentStock < batchList.getFirst().getCurrentStock() &&
+                    batchList.getFirst().getExpirationDate().isAfter(currentDate)){
+                Batch batch = batchList.getFirst();
+                DataBaseManager.updateBatch(batch, product.ID, batch.getCurrentStock() - currentStock, batch.getExpirationDate());
+                stockAmountSold += currentStock;
+                count++;
+            }
 
-            tableViewBatches.setItems(product.getBatchList());
-            tableViewBatches.refresh();
-            validateFields();
-            clearSelection();
-            AlertsController.refreshTableView();
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Sold Batch/es",
-                    stockAmountSold + " Batch/es has been sold.");
+            if(count > 0){
+                DataBaseManager.addSale(
+                        product.ID,
+                        product.getName(),
+                        currentDate,
+                        stockAmountSold,
+                        product.getUnitPrice());
+
+                DataBaseManager.addInventoryAdjustment(
+                        Model.getInstance().getCurrentUser().ID,
+                        Model.getInstance().getCurrentUser().getRole(),
+                        product.ID,
+                        product.getName(),
+                        -1,
+                        LocalDateTime.now(),
+                        "SALE",
+                        product.getStockCount(),
+                        product.calculateStockCount()
+                );
+
+
+                validateFields();
+                clearSelection();
+                AlertsController.refreshTableView();
+                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Sold Batch/es",
+                        stockAmountSold + " " + product.getName() + " has been sold.");
+            }
         }
     }
 
@@ -459,7 +491,6 @@ public class InventoryBatchesController implements Initializable {
             dateExpirationDate.setValue(batch.getExpirationDate());
             lblBatchId.setText("Batch ID: " + batch.ID);
             btnClearSelection.setDisable(false);
-            validateFields();
         }
         else{
             txtStockAmount.setText("");

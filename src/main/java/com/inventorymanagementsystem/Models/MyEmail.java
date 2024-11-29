@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class MyEmail {
 
-    public static void sendEmail(String fromEmail, String password, String toEmail, String subject, String body) {
+    public static boolean sendEmail(String fromEmail, String password, String toEmail, String subject, String body) {
         String host = getSmtpHost(fromEmail);
 
         Properties properties = new Properties();
@@ -36,12 +36,14 @@ public class MyEmail {
             System.out.println("Email sent successfully!");
             Model.getInstance().showAlert(AlertType.INFORMATION, "Successfully Sent Email",
                     "Email from " + fromEmail + " to " + toEmail + " was sent successfully!");
+            return true;
 
         } catch (MessagingException e) {
             Model.getInstance().showAlert(AlertType.ERROR, "Error sending Email",
                     "Email from " + fromEmail + " to " + toEmail + " was not sent!" +
                             "\nError: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("MessagingException Error: " + e.getMessage());
+            return false;
         }
     }
 
@@ -56,35 +58,5 @@ public class MyEmail {
             case "outlook.com", "hotmail.com" -> "smtp.office365.com";
             default -> "Other";
         };
-    }
-
-    public static boolean isEmailPassword(String fromEmail, String password) {
-        String host = getSmtpHost(fromEmail);
-
-        Properties properties = new Properties();
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-
-        Session session = Session.getInstance(properties, new jakarta.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, password);
-            }
-        });
-
-        try {
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, fromEmail, password);
-            transport.close();
-
-            System.out.println("Authentication successful!");
-            return true;
-
-        }
-        catch (MessagingException e) {
-            System.err.println("Authentication failed: " + e.getMessage());
-            return false;
-        }
     }
 }

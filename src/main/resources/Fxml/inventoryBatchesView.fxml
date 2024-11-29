@@ -62,12 +62,12 @@
       <ComboBox fx:id="comboBoxBatchCommands" layoutX="697.0" layoutY="789.0" prefHeight="29.0" prefWidth="99.0" />
       <TextField fx:id="txtProductName" editable="false" layoutX="14.0" layoutY="579.0" promptText="Product Name" />
       <TextField fx:id="txtUnitPrice" editable="false" layoutX="14.0" layoutY="653.0" promptText="Unit Price" />
-      <Label fx:id="lblProductId" layoutX="14.0" layoutY="712.0" prefHeight="23.0" prefWidth="129.0" text="Product ID: ">
+      <Label fx:id="lblProductId" layoutX="14.0" layoutY="712.0" prefHeight="29.0" prefWidth="520.0" text="Product ID: ">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lblBatchId" layoutX="565.0" layoutY="712.0" prefHeight="23.0" prefWidth="129.0" text="Batch ID: ">
+      <Label fx:id="lblBatchId" layoutX="565.0" layoutY="712.0" prefHeight="29.0" prefWidth="520.0" text="Batch ID: ">
          <font>
             <Font size="24.0" />
          </font>

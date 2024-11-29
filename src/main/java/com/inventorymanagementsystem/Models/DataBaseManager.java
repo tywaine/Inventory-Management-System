@@ -2,6 +2,7 @@ package com.inventorymanagementsystem.Models;
 
 import javafx.scene.control.Alert.AlertType;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
@@ -1147,9 +1148,9 @@ public class DataBaseManager {
         return null;
     }
 
-    public static boolean doesUserExists() {
+    public static boolean doesAdminExists() {
         Connection connection = Model.getInstance().getDataBaseDriver().getConnection();
-        String query = "SELECT COUNT(*) FROM Users";
+        String query = "SELECT COUNT(*) FROM Users WHERE role = 'ADMIN'";
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery()){
@@ -1159,7 +1160,7 @@ public class DataBaseManager {
                 return userCount > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Does Admin Exist Error: " + e.getMessage());
         }
 
         return false;
@@ -1168,93 +1169,33 @@ public class DataBaseManager {
     public static void ensureTablesExist() {
         Connection connection = Model.getInstance().getDataBaseDriver().getConnection();
 
-        String[] createTableStatements = {
-                "CREATE TABLE IF NOT EXISTS Products (" +
-                        "product_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "name VARCHAR(100) NOT NULL, " +
-                        "category VARCHAR(50) NULL, " +
-                        "unit_price DECIMAL(10, 2) NOT NULL, " +
-                        "low_stock_amount INT NOT NULL)",
+        try (InputStream inputStream = DataBaseManager.class.getResourceAsStream("/create_tables.sql")) {
+            assert inputStream != null;
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                 Statement statement = connection.createStatement()) {
 
-                "CREATE TABLE IF NOT EXISTS Suppliers (" +
-                        "supplier_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "name VARCHAR(100) NOT NULL, " +
-                        "contact_email VARCHAR(100) NULL, " +
-                        "phone_number VARCHAR(20) NULL, " +
-                        "address TEXT NULL)",
+                StringBuilder sqlBuilder = new StringBuilder();
+                String line;
 
-                "CREATE TABLE IF NOT EXISTS Batches (" +
-                        "batch_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "product_id INT NOT NULL, " +
-                        "current_stock INT NOT NULL, " +
-                        "expiration_date DATE NOT NULL, " +
-                        "FOREIGN KEY (product_id) REFERENCES Products(product_id))",
+                while ((line = reader.readLine()) != null) {
+                    if (line.trim().isEmpty() || line.trim().startsWith("--")) {
+                        continue;
+                    }
 
-                "CREATE TABLE IF NOT EXISTS InventoryAdjustments (" +
-                        "adjustment_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "user_id INT NOT NULL, " +
-                        "user_role ENUM('ADMIN', 'STAFF') DEFAULT 'ADMIN', " +
-                        "product_id INT NOT NULL, " +
-                        "product_name VARCHAR(100), " +
-                        "batch_id INT NULL, " +
-                        "adjustment_datetime DATETIME NOT NULL, " +
-                        "adjustment_type ENUM('ADDITION', 'DELETION', 'RESTOCK', 'SALE', 'ADJUSTMENT', 'UPDATE') NOT NULL, " +
-                        "previous_stock INT NULL, " +
-                        "adjusted_stock INT NULL)",
+                    sqlBuilder.append(line.trim()).append(" ");
 
-                "CREATE TABLE IF NOT EXISTS PurchaseOrders (" +
-                        "order_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "order_date DATE NOT NULL, " +
-                        "supplier_id INT NULL, " +
-                        "supplier_name VARCHAR(100) NOT NULL, " +
-                        "product_name VARCHAR(100) NOT NULL, " +
-                        "quantity INT NOT NULL, " +
-                        "total_amount DECIMAL(10, 2) DEFAULT 0.00 NULL)",
-
-                "CREATE TABLE IF NOT EXISTS Sales (" +
-                        "sale_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "product_id INT NOT NULL, " +
-                        "product_name VARCHAR(100), " +
-                        "sale_date DATE NOT NULL, " +
-                        "quantity_sold INT NOT NULL, " +
-                        "sale_price DECIMAL(10, 2) NULL)",
-
-                "CREATE TABLE IF NOT EXISTS Users (" +
-                        "user_id INT AUTO_INCREMENT PRIMARY KEY, " +
-                        "name VARCHAR(50) NOT NULL, " +
-                        "password_hash VARCHAR(255) NOT NULL, " +
-                        "role ENUM('ADMIN', 'STAFF') DEFAULT 'ADMIN' NULL, " +
-                        "email VARCHAR(100) NOT NULL, " +
-                        "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL, " +
-                        "UNIQUE (email))",
-
-                "CREATE TABLE IF NOT EXISTS Admins (" +
-                        "admin_id INT PRIMARY KEY AUTO_INCREMENT, " +
-                        "user_id INT NOT NULL UNIQUE, " +
-                        "email_password_encrypted VARCHAR(255), " +
-                        "FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE)"
-        };
-
-        String[] createIndexStatements = {
-                "CREATE INDEX product_id_idx ON Batches (product_id)"
-        };
-
-        try (Statement statement = connection.createStatement()) {
-            for (String sql : createTableStatements) {
-                statement.execute(sql);
-            }
-
-            for (String indexSql : createIndexStatements) {
-                try {
-                    statement.execute(indexSql);
-                } catch (SQLException e) {
-                    if (!e.getMessage().contains("Duplicate key name")) {
-                        e.printStackTrace();
+                    if (line.trim().endsWith(";")) {
+                        statement.execute(sqlBuilder.toString());
+                        sqlBuilder.setLength(0);
                     }
                 }
-            }
 
-        } catch (SQLException e) {
+                if (!sqlBuilder.isEmpty()) {
+                    statement.execute(sqlBuilder.toString());
+                }
+
+            }
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -1303,16 +1244,6 @@ public class DataBaseManager {
         loadSales();
         loadSuppliers();
         loadStaff();
-    }
-
-    public static void removeInfo() {
-        Batch.empty();
-        InventoryAdjustment.empty();
-        Product.empty();
-        PurchaseOrder.empty();
-        Sale.empty();
-        Supplier.empty();
-        User.emptyStaff();
     }
     
 }

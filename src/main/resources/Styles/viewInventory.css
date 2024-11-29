@@ -29,15 +29,17 @@
     -fx-background-color: #ffffff;
     -fx-border-color: #dcdcdc;
     -fx-border-width: 0 0 1px 0;
+    -fx-text-fill: white;
 }
 
 .table-view .table-row-cell:odd {
     -fx-background-color: #f9f9f9;
+    -fx-text-fill: white;
 }
 
 .table-view .table-row-cell:selected, .table-view .table-cell:selected {
     -fx-background-color: #2756b3;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
 
 .table-view .table-cell {

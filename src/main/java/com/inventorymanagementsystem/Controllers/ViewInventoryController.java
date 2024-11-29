@@ -331,6 +331,7 @@ public class ViewInventoryController implements Initializable {
                 -1
         );
 
+        AlertsController.refreshTableView();
         tableViewInventory.refresh();
         validateFields();
         Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Updated Product",
@@ -377,6 +378,10 @@ public class ViewInventoryController implements Initializable {
         comboBoxCategory.setValue("");
         txtUnitPrice.setText("");
         txtLowStockAmount.setText("");
+        lblNameError.setText("");
+        lblCategoryError.setText("");
+        lblUnitPriceError.setText("");
+        lblLowStockError.setText("");
     }
 
     public void clearSelection() {
@@ -385,6 +390,10 @@ public class ViewInventoryController implements Initializable {
         comboBoxCategory.setValue("");
         txtUnitPrice.setText("");
         txtLowStockAmount.setText("");
+        lblNameError.setText("");
+        lblCategoryError.setText("");
+        lblUnitPriceError.setText("");
+        lblLowStockError.setText("");
         btnClearSelection.setDisable(true);
 
         lblProductID.setText("Product ID: ");
@@ -397,6 +406,7 @@ public class ViewInventoryController implements Initializable {
             txtUnitPrice.setText(String.valueOf(product.getUnitPrice()));
             txtLowStockAmount.setText(String.valueOf(product.getLowStockAmount()));
             lblProductID.setText("Product ID: " + product.ID);
+            btnClearSelection.setDisable(false);
 
             if(btnInventoryCommand.getText().equals("Add Product")){
                 lblNameError.setText("Product Name is already taken");
@@ -408,6 +418,7 @@ public class ViewInventoryController implements Initializable {
             txtUnitPrice.setText("");
             txtLowStockAmount.setText("");
             lblProductID.setText("Product ID: ");
+            btnClearSelection.setDisable(true);
         }
     }
 }
