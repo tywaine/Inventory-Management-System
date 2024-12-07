@@ -18,4 +18,7 @@ module com.inventorymanagementsystem {
     exports com.inventorymanagementsystem.Controllers.Staff;
     exports com.inventorymanagementsystem.Models;
     exports com.inventorymanagementsystem.Views;
+    exports com.inventorymanagementsystem.Config;
+    exports com.inventorymanagementsystem.Utils;
+    exports com.inventorymanagementsystem.Enums;
 }

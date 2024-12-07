@@ -1,5 +1,6 @@
-package com.inventorymanagementsystem.Models;
+package com.inventorymanagementsystem.Utils;
 
+import com.inventorymanagementsystem.Models.Model;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;

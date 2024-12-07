@@ -1,10 +1,9 @@
 package com.inventorymanagementsystem.Models;
 
+import com.inventorymanagementsystem.Config.DataBaseDriver;
 import com.inventorymanagementsystem.Views.ViewFactory;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
-import java.time.LocalDateTime;
 
 public class Model {
     private static Model model;

@@ -1,4 +1,4 @@
-package com.inventorymanagementsystem.Models;
+package com.inventorymanagementsystem.Utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 

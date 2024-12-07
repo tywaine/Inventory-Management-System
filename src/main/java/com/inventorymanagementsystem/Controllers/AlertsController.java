@@ -33,7 +33,7 @@ public class AlertsController implements Initializable {
 
         filteredAlertList = new FilteredList<>(alertList, p -> true);
         tableViewAlerts.setItems(filteredAlertList);
-        txtAlertSearch.textProperty().addListener((observable, oldValue, newValue) -> filterAlertList());
+        txtAlertSearch.textProperty().addListener((_, _, _) -> filterAlertList());
     }
 
     private void filterAlertList() {
