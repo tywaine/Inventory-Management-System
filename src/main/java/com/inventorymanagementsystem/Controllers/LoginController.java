@@ -3,6 +3,7 @@ package com.inventorymanagementsystem.Controllers;
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Enums.PreferenceKeys;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
@@ -142,7 +143,7 @@ public class LoginController implements Initializable {
                 Model.getInstance().getViewFactory().showStaffWindow();
             }
             else{
-                Model.getInstance().showAlert(AlertType.ERROR, "There is no User other than Admin and Staff", "How did this happen?????");
+                MyAlert.showAlert(AlertType.ERROR, "There is no User other than Admin and Staff", "How did this happen?????");
                 System.exit(1);
             }
         }

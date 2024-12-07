@@ -4,6 +4,7 @@ import com.inventorymanagementsystem.Models.Batch;
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Models.Product;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -319,7 +320,7 @@ public class InventoryBatchesController implements Initializable {
 
         batchList.add(Batch.getList().getLast());
         AlertsController.refreshTableView();
-        Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Added Batch",
+        MyAlert.showAlert(Alert.AlertType.INFORMATION, "Added Batch",
                 "Batch with ID: " + id + " has been added.");
     }
 
@@ -345,7 +346,7 @@ public class InventoryBatchesController implements Initializable {
         tableViewBatches.refresh();
         validateFields();
         AlertsController.refreshTableView();
-        Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Updated Batch",
+        MyAlert.showAlert(Alert.AlertType.INFORMATION, "Updated Batch",
                 "Batch with ID: " + batch.ID + " has been updated.");
     }
 
@@ -354,14 +355,11 @@ public class InventoryBatchesController implements Initializable {
         int currentStock = Integer.parseInt(txtStockAmount.getText());
         LocalDate currentDate = LocalDate.now();
 
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Sell Batch?",
+        if (MyAlert.confirmationDialogAlertIsYes("Sell Batch?",
                 "Are you sure you want to sell this product.\n" + "Product Name: " + product.getName() +
-                        "\nAmount: " + currentStock);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+                        "\nAmount: " + currentStock)) {
             if(product.getStockCount() < currentStock){
-                Model.getInstance().showAlert(Alert.AlertType.ERROR, "Entered Amount is greater than the product Total Stock Count",
+                MyAlert.showAlert(Alert.AlertType.ERROR, "Entered Amount is greater than the product Total Stock Count",
                         "Enter stock amount to sell is greater than product total stock Count\n" +
                                 "Product Total Stock Count: " + product.getStockCount());
                 return;
@@ -372,7 +370,7 @@ public class InventoryBatchesController implements Initializable {
 
             while(!batchList.isEmpty() && currentStock >= batchList.getFirst().getCurrentStock()){
                 if(batchList.getFirst().getExpirationDate().isBefore(currentDate)){
-                    Model.getInstance().showAlert(Alert.AlertType.ERROR, "Cannot Sell Batch",
+                    MyAlert.showAlert(Alert.AlertType.ERROR, "Cannot Sell Batch",
                             "Batch with ID: " + batchList.getFirst().ID + " cannot be sold since the expiration date has passed.\n" +
                                     "Update the batch if you entered the wrong information or delete it!!");
                     break;
@@ -417,7 +415,7 @@ public class InventoryBatchesController implements Initializable {
                 validateFields();
                 clearSelection();
                 AlertsController.refreshTableView();
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Sold Batch/es",
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Sold Batch/es",
                         stockAmountSold + " " + product.getName() + " has been sold.");
             }
         }
@@ -426,11 +424,9 @@ public class InventoryBatchesController implements Initializable {
     public void deleteBatch(){
         Product product = tableViewProducts.getSelectionModel().getSelectedItem();
         Batch batch = tableViewBatches.getSelectionModel().getSelectedItem();
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Delete Batch?",
-                "Are you sure you want to delete this Batch?\nBatch ID: " + batch.ID);
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (MyAlert.confirmationDialogAlertIsYes("Delete Batch?",
+                "Are you sure you want to delete this Batch?\nBatch ID: " + batch.ID)) {
             DataBaseManager.deleteBatch(batch);
             DataBaseManager.addInventoryAdjustment(
                     Model.getInstance().getCurrentUser().ID,
@@ -448,7 +444,7 @@ public class InventoryBatchesController implements Initializable {
                 clearSelection();
                 batchList.remove(batch);
                 AlertsController.refreshTableView();
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Deleted Batch",
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Deleted Batch",
                         "Batch with ID: " + batch.ID + " has been deleted.");
             }
         }

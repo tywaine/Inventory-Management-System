@@ -3,6 +3,7 @@ package com.inventorymanagementsystem.Controllers;
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Models.User;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
@@ -96,12 +97,12 @@ public class SignUpController implements Initializable {
         String confirmPassword = (txtConfirmPassword.isVisible()) ? txtConfirmPassword.getText() : pwdConfirmPassword.getText();
 
         if(!password.equals(confirmPassword)){
-            Model.getInstance().showAlert(AlertType.ERROR, "Password doesn't match", "Password and Confirm Password do not match...");
+            MyAlert.showAlert(AlertType.ERROR, "Password doesn't match", "Password and Confirm Password do not match...");
             return;
         }
 
         if(password.length() < 8){
-            Model.getInstance().showAlert(AlertType.ERROR, "Password too short", "Password must be at least 8 characters long");
+            MyAlert.showAlert(AlertType.ERROR, "Password too short", "Password must be at least 8 characters long");
             return;
         }
 
@@ -109,10 +110,10 @@ public class SignUpController implements Initializable {
         int id = DataBaseManager.getLastUserID();
         DataBaseManager.addAdmin(id, (emailPassword.isEmpty()) ? "" : emailPassword);
         Stage stage = (Stage) lblNameError.getScene().getWindow();
-        Model.getInstance().showAlert(AlertType.INFORMATION, "Successfully created User", "User was created successfully");
+        MyAlert.showAlert(AlertType.INFORMATION, "Successfully created User", "User was created successfully");
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showLoginWindow();
-        Model.getInstance().showAlert(AlertType.INFORMATION, "Login Information", "Your Login information is:\n" +
+        MyAlert.showAlert(AlertType.INFORMATION, "Login Information", "Your Login information is:\n" +
                 "ID Number: " + id + "\nEmail: " + email + "\nPassword: <password you entered>");
     }
 

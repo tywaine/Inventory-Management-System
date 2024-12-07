@@ -4,6 +4,7 @@ import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Utils.EncryptionUtils;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Enums.PreferenceKeys;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -197,9 +198,9 @@ public class DBConnectionController implements Initializable {
 
         try(Connection connection = DriverManager.getConnection(url, username, pwd)){
             loadDatabaseNames();
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Connection Successful", "Connection to the database was successful");
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Connection Successful", "Connection to the database was successful");
         } catch (SQLException e) {
-            Model.getInstance().showAlert(Alert.AlertType.ERROR, "Connection Unsuccessful", "Connection to the database was unsuccessful\n" + e.getMessage());
+            MyAlert.showAlert(Alert.AlertType.ERROR, "Connection Unsuccessful", "Connection to the database was unsuccessful\n" + e.getMessage());
         }
     }
 
@@ -233,11 +234,9 @@ public class DBConnectionController implements Initializable {
 
             try{
                 Connection connection = DriverManager.getConnection(url, username, pwd);
-                Alert alert = Model.getInstance().getConfirmationDialogAlert("Connection Successful but database doesn't exist",
-                        "The connection was successful but the database doesn't exist. Do you wish to create it?");
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.YES) {
+                if (MyAlert.confirmationDialogAlertIsYes("Connection Successful but database doesn't exist",
+                        "The connection was successful but the database doesn't exist. Do you wish to create it?")) {
                     createDatabase(connection, comboBoxDB.getValue());
                     url = "jdbc:mysql://" + txtHost.getText() + ':' + txtPort.getText() + "/" + comboBoxDB.getValue();
                     connection = DriverManager.getConnection(url, username, pwd);
@@ -254,13 +253,13 @@ public class DBConnectionController implements Initializable {
                     showSignUpWindow();
                 }
             }catch(SQLException t){
-                Model.getInstance().showAlert(Alert.AlertType.ERROR, "Connection Unsuccessful", "Connection to the database was unsuccessful\n" + e.getMessage());
+                MyAlert.showAlert(Alert.AlertType.ERROR, "Connection Unsuccessful", "Connection to the database was unsuccessful\n" + e.getMessage());
             }}
     }
 
     public void showSignUpWindow(){
         Model.getInstance().getViewFactory().showSignUpWindow();
-        Model.getInstance().showAlert(AlertType.INFORMATION, "First time creating a User account",
+        MyAlert.showAlert(AlertType.INFORMATION, "First time creating a User account",
                 """
                         Since there is no user registered in the system you will create an Account.
                         Make sure to remember the details, specifically the EMAIL and obviously the PASSWORD.
@@ -273,7 +272,7 @@ public class DBConnectionController implements Initializable {
 
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(query);
-            Model.getInstance().showAlert(AlertType.INFORMATION, "Database created Successfully", "Database created successfully!!");
+            MyAlert.showAlert(AlertType.INFORMATION, "Database created Successfully", "Database created successfully!!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
