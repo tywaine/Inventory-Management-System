@@ -1,6 +1,6 @@
 package com.inventorymanagementsystem.Config;
 
-import javafx.scene.control.Alert;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.sql.Connection;
@@ -18,7 +18,7 @@ public class DataBaseDriver {
             this.connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USERNAME, MYSQL_PASSWORD);
         }catch(SQLException e){
             System.err.println("DatabaseDriver Error: " + e.getMessage());
-            showAlert(AlertType.ERROR, "No Database Connection",
+            MyAlert.showAlert(AlertType.ERROR, "No Database Connection",
                     "No Database Connection Available");
             System.exit(1);
         }
@@ -48,13 +48,5 @@ public class DataBaseDriver {
         }
 
         return false;
-    }
-
-    public void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText("");
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 }

@@ -7,6 +7,7 @@ import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Enums.AdminMenuOptions;
 import com.inventorymanagementsystem.Enums.StaffMenuOptions;
 import com.inventorymanagementsystem.Models.Model;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
@@ -176,7 +177,7 @@ public class ViewFactory {
     public void showSignUpWindow(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/signUpView.fxml"));
         createStage(loader, "Sign Up");
-        Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "First time creating a User account",
+        MyAlert.showAlert(Alert.AlertType.INFORMATION, "First time creating a User account",
                 """
                         Since there is no user registered in the system you will create an Account.
                         Make sure to remember the details, specifically the EMAIL and obviously the PASSWORD.

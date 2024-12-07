@@ -2,6 +2,7 @@ package com.inventorymanagementsystem.Controllers;
 
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.*;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -307,7 +308,7 @@ public class ViewInventoryController implements Initializable {
         }
 
         AlertsController.refreshTableView();
-        Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Added Product",
+        MyAlert.showAlert(Alert.AlertType.INFORMATION, "Added Product",
                 "Product with ID: " + id + " has been added.");
     }
 
@@ -335,7 +336,7 @@ public class ViewInventoryController implements Initializable {
         AlertsController.refreshTableView();
         tableViewInventory.refresh();
         validateFields();
-        Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Updated Product",
+        MyAlert.showAlert(Alert.AlertType.INFORMATION, "Updated Product",
                 "Product with ID: " + product.ID + " has been updated.");
     }
 
@@ -343,15 +344,13 @@ public class ViewInventoryController implements Initializable {
         Product product = tableViewInventory.getSelectionModel().getSelectedItem();
 
         if(product.getStockCount() != 0){
-            Model.getInstance().showAlert(Alert.AlertType.ERROR, "Cannot Delete Product",
+            MyAlert.showAlert(Alert.AlertType.ERROR, "Cannot Delete Product",
                     "Product with ID: " + product.ID + " cannot be deleted since the stock amount is not 0.");
             return;
         }
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Delete Product?",
-                "Are you sure you want to delete this Product?\nProduct ID: " + product.ID);
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (MyAlert.confirmationDialogAlertIsYes("Delete Product?",
+                "Are you sure you want to delete this Product?\nProduct ID: " + product.ID)) {
             DataBaseManager.deleteProduct(product);
             DataBaseManager.addInventoryAdjustment(
                     Model.getInstance().getCurrentUser().ID,
@@ -368,7 +367,7 @@ public class ViewInventoryController implements Initializable {
             if(!Product.contains(product.ID)){
                 clearSelection();
                 AlertsController.refreshTableView();
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Deleted Product",
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Deleted Product",
                         "Product with ID: " + product.ID + " has been deleted.");
             }
         }

@@ -2,6 +2,7 @@ package com.inventorymanagementsystem.Controllers.Admin;
 
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.*;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import com.inventorymanagementsystem.Utils.MyEmail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -392,7 +393,7 @@ public class ManageStaffController implements Initializable {
         }
 
         if(User.containsStaff(id)){
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Add Staff",
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Add Staff",
                     User.getStaff(id).getName() + " with ID: " + id + " has been added.");
         }
 
@@ -413,11 +414,8 @@ public class ManageStaffController implements Initializable {
 
         if(selectedStaff != null){
             if(!password.isEmpty()){
-                Alert alert = Model.getInstance().getConfirmationDialogAlert("Update Staff?",
-                        "Are you sure you want to change the password for this staff?\nStaff ID: " + selectedStaff.ID);
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.isPresent() && result.get() == ButtonType.YES) {
+                if (MyAlert.confirmationDialogAlertIsYes("Update Staff?",
+                        "Are you sure you want to change the password for this staff?\nStaff ID: " + selectedStaff.ID)) {
                     DataBaseManager.updateUser(
                             selectedStaff,
                             txtName.getText().trim(),
@@ -451,24 +449,21 @@ public class ManageStaffController implements Initializable {
             pwdPassword.setText("");
             lblPasswordError.setText("");
             validateFields();
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Updated Staff",
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Updated Staff",
                     "Staff with ID: " + selectedStaff.ID + " has been updated.");
         }
     }
 
     public void deleteStaff() {
         User selectedStaff = tableViewStaff.getSelectionModel().getSelectedItem();
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Delete Staff?",
-                "Are you sure you want to delete this Staff?\nStaff ID: " + selectedStaff.ID);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (MyAlert.confirmationDialogAlertIsYes("Delete Staff?",
+                "Are you sure you want to delete this Staff?\nStaff ID: " + selectedStaff.ID)) {
             DataBaseManager.deleteStaff(selectedStaff);
 
             if(!User.containsStaff(selectedStaff.ID)){
                 clearSelection();
 
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Deleted Staff",
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Deleted Staff",
                         "Staff with ID: " + selectedStaff.ID + " has been deleted.");
 
                 User admin = Model.getInstance().getCurrentUser();

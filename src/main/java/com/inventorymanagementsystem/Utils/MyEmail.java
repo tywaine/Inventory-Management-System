@@ -1,6 +1,5 @@
 package com.inventorymanagementsystem.Utils;
 
-import com.inventorymanagementsystem.Models.Model;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -35,12 +34,12 @@ public class MyEmail {
             Transport.send(message);
 
             System.out.println("Email sent successfully!");
-            Model.getInstance().showAlert(AlertType.INFORMATION, "Successfully Sent Email",
+            MyAlert.showAlert(AlertType.INFORMATION, "Successfully Sent Email",
                     "Email from " + fromEmail + " to " + toEmail + " was sent successfully!");
             return true;
 
         } catch (MessagingException e) {
-            Model.getInstance().showAlert(AlertType.ERROR, "Error sending Email",
+            MyAlert.showAlert(AlertType.ERROR, "Error sending Email",
                     "Email from " + fromEmail + " to " + toEmail + " was not sent!" +
                             "\nError: " + e.getMessage());
             System.out.println("MessagingException Error: " + e.getMessage());

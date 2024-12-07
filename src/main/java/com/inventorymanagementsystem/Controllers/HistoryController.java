@@ -2,6 +2,7 @@ package com.inventorymanagementsystem.Controllers;
 
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.*;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
@@ -105,18 +106,15 @@ public class HistoryController implements Initializable {
         User user = Model.getInstance().getCurrentUser();
 
         if(user.isAdmin()){
-            Alert alert = Model.getInstance().getConfirmationDialogAlert("Delete Inventory Adjustment?",
-                    "Are you sure you want to delete this Inventory Adjustment?\nInventory Adjustment ID: " + inventoryAdjustment.ID);
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.YES) {
+            if (MyAlert.confirmationDialogAlertIsYes("Delete Inventory Adjustment?",
+                    "Are you sure you want to delete this Inventory Adjustment?\nInventory Adjustment ID: " + inventoryAdjustment.ID)) {
                 DataBaseManager.deleteInventoryAdjustment(inventoryAdjustment);
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Deleted Inventory Adjustment",
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Deleted Inventory Adjustment",
                         "Inventory Adjustment with ID: " +inventoryAdjustment.ID + " has been deleted!");
             }
         }
         else{
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Invalid Access",
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Invalid Access",
                     "STAFF does not have access to delete anything in Inventory History");
         }
     }

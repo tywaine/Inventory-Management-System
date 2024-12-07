@@ -3,6 +3,7 @@ package com.inventorymanagementsystem.Controllers.Admin;
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Models.Sale;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import com.lowagie.text.pdf.PdfPCell;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -122,13 +123,10 @@ public class ReportsController implements Initializable {
     }
 
     private void deleteSale(Sale sale) {
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Delete Sale?",
-                "Are you sure you want to delete this Sale?\nSale ID: " + sale.ID);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (MyAlert.confirmationDialogAlertIsYes("Delete Sale?",
+                "Are you sure you want to delete this Sale?\nSale ID: " + sale.ID)) {
             DataBaseManager.deleteSale(sale);
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Deleted Sale",
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Deleted Sale",
                     "Sale with ID: " +sale.ID + " has been deleted!");
         }
     }
@@ -180,7 +178,7 @@ public class ReportsController implements Initializable {
 
     public void generatePDF() {
         if (tableViewSales.getItems().isEmpty()) {
-            Model.getInstance().showAlert(Alert.AlertType.ERROR, "TableView is Empty.",
+            MyAlert.showAlert(Alert.AlertType.ERROR, "TableView is Empty.",
                     "The TableView is Empty. Therefore, there is no sales report to generate.");
             return;
         }
@@ -189,22 +187,19 @@ public class ReportsController implements Initializable {
         LocalDate endDate = datePickerEnd.getValue();
 
         if (startDate != null && endDate != null && startDate.isAfter(endDate) && !startDate.isEqual(endDate)) {
-            Model.getInstance().showAlert(Alert.AlertType.ERROR, "Start Date is After End Date.",
+            MyAlert.showAlert(Alert.AlertType.ERROR, "Start Date is After End Date.",
                     "The Start Date cannot be after the End Date.");
             return;
         }
 
         if (startDate != null && endDate != null && endDate.isBefore(startDate) && !startDate.isEqual(endDate)) {
-            Model.getInstance().showAlert(Alert.AlertType.ERROR, "End Date is Before Start Date.",
+            MyAlert.showAlert(Alert.AlertType.ERROR, "End Date is Before Start Date.",
                     "The End Date cannot be before the Start Date.");
             return;
         }
 
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Confirmation",
-                "Are you sure you want to generate a PDF for the sales information?");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (MyAlert.confirmationDialogAlertIsYes("Confirmation",
+                "Are you sure you want to generate a PDF for the sales information?")) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save PDF");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
@@ -250,11 +245,11 @@ public class ReportsController implements Initializable {
                     document.add(topSellingProductTable);
 
                     document.close();
-                    Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Successfully Generated PDF",
+                    MyAlert.showAlert(Alert.AlertType.INFORMATION, "Successfully Generated PDF",
                             "The PDF report has been saved successfully.");
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Model.getInstance().showAlert(Alert.AlertType.ERROR, "Error Generating PDF",
+                    MyAlert.showAlert(Alert.AlertType.ERROR, "Error Generating PDF",
                             "An error occurred while generating the PDF.");
                 }
             }

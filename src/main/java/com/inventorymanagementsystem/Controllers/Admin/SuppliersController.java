@@ -3,6 +3,7 @@ package com.inventorymanagementsystem.Controllers.Admin;
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Models.Supplier;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -478,7 +479,7 @@ public class SuppliersController implements Initializable {
         }
 
         if(Supplier.contains(id)){
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Add Supplier",
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Add Supplier",
                     Supplier.get(id).getFirstName() + " " + Supplier.get(id).getLastName() + " with ID: " + id + " has been added.");
         }
     }
@@ -496,24 +497,21 @@ public class SuppliersController implements Initializable {
 
             tableViewSuppliers.refresh();
             validateFields();
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Update Supplier",
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Update Supplier",
                     "Supplier with ID: " + selectedSupplier.ID + " has been updated.");
         }
     }
 
     public void deleteSupplier() {
         Supplier selectedSupplier = tableViewSuppliers.getSelectionModel().getSelectedItem();
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Delete Supplier?",
-                "Are you sure you want to delete this Supplier?\nSupplier ID: " + selectedSupplier.ID);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (MyAlert.confirmationDialogAlertIsYes("Delete Supplier?",
+                "Are you sure you want to delete this Supplier?\nSupplier ID: " + selectedSupplier.ID)) {
             DataBaseManager.deleteSupplier(selectedSupplier);
 
             if(!Supplier.contains(selectedSupplier.ID)){
                 clearSelection();
 
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Deleted Supplier",
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Deleted Supplier",
                         "Supplier with ID: " + selectedSupplier.ID + " has been deleted.");
             }
         }

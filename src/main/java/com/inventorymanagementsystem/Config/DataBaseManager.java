@@ -2,6 +2,7 @@ package com.inventorymanagementsystem.Config;
 
 import com.inventorymanagementsystem.Models.*;
 import com.inventorymanagementsystem.Utils.EncryptionUtils;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import com.inventorymanagementsystem.Utils.MyBCrypt;
 import javafx.scene.control.Alert.AlertType;
 
@@ -304,7 +305,7 @@ public class DataBaseManager {
             }
 
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error loading Staff",
+            MyAlert.showAlert(AlertType.ERROR, "Error loading Staff",
                     e.getMessage());
             e.printStackTrace();
         }
@@ -327,7 +328,7 @@ public class DataBaseManager {
             }
 
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error loading Batches",
+            MyAlert.showAlert(AlertType.ERROR, "Error loading Batches",
                     e.getMessage());
             e.printStackTrace();
         }
@@ -370,7 +371,7 @@ public class DataBaseManager {
             }
 
         } catch (SQLException e) {
-            Model.getInstance().showAlert(AlertType.ERROR, "Error loading Inventory Adjustments",
+            MyAlert.showAlert(AlertType.ERROR, "Error loading Inventory Adjustments",
                     e.getMessage());
             e.printStackTrace();
         }
@@ -394,7 +395,7 @@ public class DataBaseManager {
             }
 
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error loading Products",
+            MyAlert.showAlert(AlertType.ERROR, "Error loading Products",
                     e.getMessage());
             e.printStackTrace();
         }
@@ -420,7 +421,7 @@ public class DataBaseManager {
             }
 
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error loading Purchase Orders",
+            MyAlert.showAlert(AlertType.ERROR, "Error loading Purchase Orders",
                     e.getMessage());
             e.printStackTrace();
         }
@@ -445,7 +446,7 @@ public class DataBaseManager {
             }
 
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error loading Sales",
+            MyAlert.showAlert(AlertType.ERROR, "Error loading Sales",
                     e.getMessage());
             e.printStackTrace();
         }
@@ -468,7 +469,7 @@ public class DataBaseManager {
                 new Supplier(saleId, name, contactEmail, phoneNumber, address);
             }
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error loading Suppliers",
+            MyAlert.showAlert(AlertType.ERROR, "Error loading Suppliers",
                     e.getMessage());
             e.printStackTrace();
         }
@@ -513,7 +514,7 @@ public class DataBaseManager {
 
             addMessage("Batch", batchId, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding Batch",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding Batch",
                     e.getMessage());
         }
     }
@@ -565,7 +566,7 @@ public class DataBaseManager {
 
             addMessage("Inventory Adjustment", adjustment_id, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding Inventory Adjustment",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding Inventory Adjustment",
                     e.getMessage());
         }
     }
@@ -589,7 +590,7 @@ public class DataBaseManager {
 
             addMessage("Product", productId, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding Product",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding Product",
                     e.getMessage());
         }
     }
@@ -617,7 +618,7 @@ public class DataBaseManager {
 
             addMessage("Purchase Order", orderID, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding Purchase Order",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding Purchase Order",
                     e.getMessage());
         }
     }
@@ -642,7 +643,7 @@ public class DataBaseManager {
 
             addMessage("Sale", saleId, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding Sale",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding Sale",
                     e.getMessage());
         }
     }
@@ -666,7 +667,7 @@ public class DataBaseManager {
 
             addMessage("Supplier", supplierId, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding Supplier",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding Supplier",
                     e.getMessage());
         }
     }
@@ -690,7 +691,7 @@ public class DataBaseManager {
 
             addMessage("User", userId, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding User",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding User",
                     e.getMessage());
         }
     }
@@ -713,7 +714,7 @@ public class DataBaseManager {
 
             addMessage("User", userId, rowsAdded);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error adding User",
+            MyAlert.showAlert(AlertType.ERROR, "Error adding User",
                     e.getMessage());
         }
     }
@@ -731,7 +732,7 @@ public class DataBaseManager {
 
             updateMessage("Batch", user.ID, rowsUpdated);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error updating Admin",
+            MyAlert.showAlert(AlertType.ERROR, "Error updating Admin",
                     e.getMessage());
         }
     }
@@ -754,7 +755,7 @@ public class DataBaseManager {
 
             updateMessage("Batch", batch.ID, rowsUpdated);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error updating Batch",
+            MyAlert.showAlert(AlertType.ERROR, "Error updating Batch",
                     e.getMessage());
         }
     }
@@ -777,7 +778,7 @@ public class DataBaseManager {
 
             updateMessage("Product", product.ID, rowsUpdated);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error updating Product",
+            MyAlert.showAlert(AlertType.ERROR, "Error updating Product",
                     e.getMessage());
         }
     }
@@ -800,7 +801,7 @@ public class DataBaseManager {
 
             updateMessage("Supplier", supplier.ID, rowsUpdated);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error updating Supplier",
+            MyAlert.showAlert(AlertType.ERROR, "Error updating Supplier",
                     e.getMessage());
         }
     }
@@ -821,7 +822,7 @@ public class DataBaseManager {
 
             updateMessage("User", user.ID, rowsUpdated);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error updating User",
+            MyAlert.showAlert(AlertType.ERROR, "Error updating User",
                     e.getMessage());
         }
     }
@@ -843,7 +844,7 @@ public class DataBaseManager {
 
             updateMessage("User", user.ID, rowsUpdated);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error updating User",
+            MyAlert.showAlert(AlertType.ERROR, "Error updating User",
                     e.getMessage());
         }
     }
@@ -864,7 +865,7 @@ public class DataBaseManager {
 
             deleteMessage("Batch", batch.ID, rowsDeleted);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error deleting Batch",
+            MyAlert.showAlert(AlertType.ERROR, "Error deleting Batch",
                     e.getMessage());
         }
     }
@@ -883,7 +884,7 @@ public class DataBaseManager {
 
             deleteMessage("Inventory Adjustment", inventoryAdjustment.ID, rowsDeleted);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error deleting Inventory Adjustment",
+            MyAlert.showAlert(AlertType.ERROR, "Error deleting Inventory Adjustment",
                     e.getMessage());
         }
     }
@@ -902,7 +903,7 @@ public class DataBaseManager {
 
             deleteMessage("Product", product.ID, rowsDeleted);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error deleting Product",
+            MyAlert.showAlert(AlertType.ERROR, "Error deleting Product",
                     e.getMessage());
         }
     }
@@ -921,7 +922,7 @@ public class DataBaseManager {
 
             deleteMessage("Purchase Order", purchaseOrder.ID, rowsDeleted);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error deleting Purchase Order",
+            MyAlert.showAlert(AlertType.ERROR, "Error deleting Purchase Order",
                     e.getMessage());
         }
     }
@@ -940,7 +941,7 @@ public class DataBaseManager {
 
             deleteMessage("Sale", sale.ID, rowsDeleted);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error deleting Sale",
+            MyAlert.showAlert(AlertType.ERROR, "Error deleting Sale",
                     e.getMessage());
         }
     }
@@ -959,7 +960,7 @@ public class DataBaseManager {
 
             deleteMessage("Supplier", supplier.ID, rowsDeleted);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error deleting Supplier",
+            MyAlert.showAlert(AlertType.ERROR, "Error deleting Supplier",
                     e.getMessage());
         }
     }
@@ -978,7 +979,7 @@ public class DataBaseManager {
 
             deleteMessage("User with role: Staff", staff.ID, rowsDeleted);
         }catch(SQLException e){
-            Model.getInstance().showAlert(AlertType.ERROR, "Error deleting Supplier",
+            MyAlert.showAlert(AlertType.ERROR, "Error deleting Supplier",
                     e.getMessage());
         }
     }
@@ -1143,7 +1144,7 @@ public class DataBaseManager {
 
             resultSet.close();
         } catch (SQLException e) {
-            Model.getInstance().showAlert(AlertType.ERROR, "Error with User Created_at", e.getMessage());
+            MyAlert.showAlert(AlertType.ERROR, "Error with User Created_at", e.getMessage());
             e.printStackTrace();
         }
 

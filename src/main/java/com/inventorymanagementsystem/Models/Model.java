@@ -2,8 +2,6 @@ package com.inventorymanagementsystem.Models;
 
 import com.inventorymanagementsystem.Config.DataBaseDriver;
 import com.inventorymanagementsystem.Views.ViewFactory;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 public class Model {
     private static Model model;
@@ -42,23 +40,5 @@ public class Model {
 
     public DataBaseDriver getDataBaseDriver() {
         return dataBaseDriver;
-    }
-
-    public void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText("");
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
-
-    public Alert getConfirmationDialogAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText("");
-        alert.setContentText(content);
-
-        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-        return alert;
     }
 }

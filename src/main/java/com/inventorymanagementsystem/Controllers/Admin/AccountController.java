@@ -3,6 +3,7 @@ package com.inventorymanagementsystem.Controllers.Admin;
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Models.User;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -217,7 +218,7 @@ public class AccountController implements Initializable {
                 pwdConfirmPassword.setText("");
                 pwdNewPassword.setText("");
                 btnSubmit.setDisable(true);
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Change Password", "Password was successfully changed");
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Change Password", "Password was successfully changed");
                 return;
             }
             else{
@@ -240,11 +241,11 @@ public class AccountController implements Initializable {
         String emailPassword = txtEmailPassword.isVisible() ? txtEmailPassword.getText() : pwdEmailPassword.getText();
 
         if(emailPassword.isEmpty()){
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Updated Details", "Your Details were successfully updated");
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Updated Details", "Your Details were successfully updated");
         }
         else{
             DataBaseManager.updateAdmin(user, emailPassword);
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Updated Details", "Your Details were successfully updated\n" +
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Updated Details", "Your Details were successfully updated\n" +
                     "Email Password was also updated");
         }
 

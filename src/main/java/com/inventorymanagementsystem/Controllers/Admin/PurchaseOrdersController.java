@@ -2,6 +2,7 @@ package com.inventorymanagementsystem.Controllers.Admin;
 
 import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.*;
+import com.inventorymanagementsystem.Utils.MyAlert;
 import com.inventorymanagementsystem.Utils.MyEmail;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -138,13 +139,10 @@ public class PurchaseOrdersController implements Initializable{
     }
 
     private void deletePurchaseOrder(PurchaseOrder purchaseOrder) {
-        Alert alert = Model.getInstance().getConfirmationDialogAlert("Delete Purchase Order?",
-                "Are you sure you want to delete this purchase order?\nPurchase Order ID: " + purchaseOrder.ID);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.YES) {
+        if (MyAlert.confirmationDialogAlertIsYes("Delete Purchase Order?",
+                "Are you sure you want to delete this purchase order?\nPurchase Order ID: " + purchaseOrder.ID)) {
             DataBaseManager.deletePurchaseOrder(purchaseOrder);
-            Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Deleted Purchase Order",
+            MyAlert.showAlert(Alert.AlertType.INFORMATION, "Deleted Purchase Order",
                     "Purchase order with ID: " +purchaseOrder.ID + " has been deleted!");
         }
     }
@@ -231,7 +229,7 @@ public class PurchaseOrdersController implements Initializable{
 
     public void sendPurchaseOrder(){
         if(comboBoxProductName.getValue().isEmpty()){
-            Model.getInstance().showAlert(Alert.AlertType.WARNING, "Empty Product Name", "Product Name cannot be empty");
+            MyAlert.showAlert(Alert.AlertType.WARNING, "Empty Product Name", "Product Name cannot be empty");
             return;
         }
 
@@ -278,7 +276,7 @@ public class PurchaseOrdersController implements Initializable{
             int id = DataBaseManager.getLastPurchaseOrderID();
 
             if(PurchaseOrder.contains(id)){
-                Model.getInstance().showAlert(Alert.AlertType.INFORMATION, "Purchase Order Added",
+                MyAlert.showAlert(Alert.AlertType.INFORMATION, "Purchase Order Added",
                         "Purchase Order has been added\n\nID: " + id);
             }
 
