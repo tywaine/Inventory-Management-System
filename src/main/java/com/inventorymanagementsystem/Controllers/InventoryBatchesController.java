@@ -1,7 +1,7 @@
 package com.inventorymanagementsystem.Controllers;
 
 import com.inventorymanagementsystem.Models.Batch;
-import com.inventorymanagementsystem.Models.DataBaseManager;
+import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Models.Product;
 import javafx.collections.FXCollections;
@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.URL;
 import java.time.DateTimeException;
 import java.time.LocalDate;

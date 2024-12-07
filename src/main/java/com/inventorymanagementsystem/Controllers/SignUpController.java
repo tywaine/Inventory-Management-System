@@ -1,6 +1,6 @@
 package com.inventorymanagementsystem.Controllers;
 
-import com.inventorymanagementsystem.Models.DataBaseManager;
+import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.Model;
 import com.inventorymanagementsystem.Models.User;
 import javafx.event.ActionEvent;

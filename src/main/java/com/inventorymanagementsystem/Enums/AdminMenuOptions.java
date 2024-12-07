@@ -1,4 +1,4 @@
-package com.inventorymanagementsystem.Views;
+package com.inventorymanagementsystem.Enums;
 
 public enum AdminMenuOptions {
     VIEW_INVENTORY("View Inventory"),

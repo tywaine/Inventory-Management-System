@@ -1,9 +1,9 @@
 package com.inventorymanagementsystem.Controllers;
 
-import com.inventorymanagementsystem.Models.DataBaseManager;
-import com.inventorymanagementsystem.Models.EncryptionUtils;
+import com.inventorymanagementsystem.Config.DataBaseManager;
+import com.inventorymanagementsystem.Utils.EncryptionUtils;
 import com.inventorymanagementsystem.Models.Model;
-import com.inventorymanagementsystem.Models.PreferenceKeys;
+import com.inventorymanagementsystem.Enums.PreferenceKeys;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;

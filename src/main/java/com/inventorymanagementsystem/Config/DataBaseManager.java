@@ -1,5 +1,8 @@
-package com.inventorymanagementsystem.Models;
+package com.inventorymanagementsystem.Config;
 
+import com.inventorymanagementsystem.Models.*;
+import com.inventorymanagementsystem.Utils.EncryptionUtils;
+import com.inventorymanagementsystem.Utils.MyBCrypt;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.BufferedReader;
@@ -10,7 +13,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 public class DataBaseManager {
 

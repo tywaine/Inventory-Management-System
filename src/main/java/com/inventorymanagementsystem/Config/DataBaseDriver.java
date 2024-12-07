@@ -1,4 +1,4 @@
-package com.inventorymanagementsystem.Models;
+package com.inventorymanagementsystem.Config;
 
 import java.sql.Connection;
 import java.sql.SQLException;

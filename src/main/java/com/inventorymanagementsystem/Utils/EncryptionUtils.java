@@ -1,4 +1,4 @@
-package com.inventorymanagementsystem.Models;
+package com.inventorymanagementsystem.Utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

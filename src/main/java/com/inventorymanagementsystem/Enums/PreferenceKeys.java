@@ -1,4 +1,4 @@
-package com.inventorymanagementsystem.Models;
+package com.inventorymanagementsystem.Enums;
 
 public enum PreferenceKeys {
     DB_HOST("inventoryManagementSystem_dbHost"),

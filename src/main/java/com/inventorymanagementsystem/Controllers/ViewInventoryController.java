@@ -1,5 +1,6 @@
 package com.inventorymanagementsystem.Controllers;
 
+import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

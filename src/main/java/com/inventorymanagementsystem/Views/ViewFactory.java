@@ -4,6 +4,8 @@ import com.inventorymanagementsystem.Controllers.Admin.AdminController;
 import com.inventorymanagementsystem.Controllers.DBConnectionController;
 import com.inventorymanagementsystem.Controllers.LoginController;
 import com.inventorymanagementsystem.Controllers.Staff.StaffController;
+import com.inventorymanagementsystem.Enums.AdminMenuOptions;
+import com.inventorymanagementsystem.Enums.StaffMenuOptions;
 import com.inventorymanagementsystem.Models.Model;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

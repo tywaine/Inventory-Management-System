@@ -1,6 +1,8 @@
 package com.inventorymanagementsystem.Controllers.Admin;
 
+import com.inventorymanagementsystem.Config.DataBaseManager;
 import com.inventorymanagementsystem.Models.*;
+import com.inventorymanagementsystem.Utils.MyEmail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

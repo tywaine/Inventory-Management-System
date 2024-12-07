@@ -2,7 +2,7 @@ package com.inventorymanagementsystem.Controllers.Staff;
 
 import com.inventorymanagementsystem.Controllers.LoginController;
 import com.inventorymanagementsystem.Models.Model;
-import com.inventorymanagementsystem.Views.StaffMenuOptions;
+import com.inventorymanagementsystem.Enums.StaffMenuOptions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
