@@ -14,7 +14,6 @@ A JavaFX-based desktop application designed to manage inventory for small busine
 - Java
 - JavaFX (get the sdk using this link: https://gluonhq.com/products/javafx/)
 - MySQL
-- Libraries: iText (for PDF generation), FontAwesomeFX (for icons)
 
 
 ### Prerequisites
