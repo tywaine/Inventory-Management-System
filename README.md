@@ -31,5 +31,5 @@ javafx and life will be much harder.
 You will also need to install Scene Builder for javafx to build the scenes.
 You can use this video to help set it up: https://www.youtube.com/watch?v=-Obxf6NjnbQ.
 
-AFTER THAT you would have to set up your database credentials in Database Driver.
+AFTER THAT you would have to set up your database credentials in Database Driver in the config folder.
 After you run App.java and you should be good :)
