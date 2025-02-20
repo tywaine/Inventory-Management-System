@@ -5,20 +5,19 @@ module com.inventorymanagementsystem {
     requires java.sql;
     requires jbcrypt;
     requires java.prefs;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.ikonli.fontawesome5;
+    requires de.jensd.fx.glyphs.fontawesome;
     requires jakarta.mail;
     requires jakarta.activation;
     requires com.github.librepdf.openpdf;
 
     opens com.inventorymanagementsystem to javafx.fxml;
     exports com.inventorymanagementsystem;
-    exports com.inventorymanagementsystem.Controllers;
-    exports com.inventorymanagementsystem.Controllers.Admin;
-    exports com.inventorymanagementsystem.Controllers.Staff;
-    exports com.inventorymanagementsystem.Models;
-    exports com.inventorymanagementsystem.Views;
-    exports com.inventorymanagementsystem.Config;
-    exports com.inventorymanagementsystem.Utils;
-    exports com.inventorymanagementsystem.Enums;
+    exports com.inventorymanagementsystem.controller;
+    exports com.inventorymanagementsystem.controller.admin;
+    exports com.inventorymanagementsystem.controller.staff;
+    exports com.inventorymanagementsystem.model;
+    exports com.inventorymanagementsystem.view;
+    exports com.inventorymanagementsystem.config;
+    exports com.inventorymanagementsystem.util;
+    exports com.inventorymanagementsystem.enums;
 }
