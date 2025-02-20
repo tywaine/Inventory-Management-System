@@ -1,0 +1,54 @@
+.password-field {
+    -fx-font-size: 13px;
+    -fx-font-family: "Monospaced";
+}
+
+#btnTestConnection {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+#btnTestConnection:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+#btnTestConnection:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
+#btnContinue {
+    -fx-background-color: #3a77ff;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-transition: all 0.3s ease;
+    -fx-cursor: hand;
+}
+
+#btnContinue:hover {
+    -fx-background-color: #2756b3;
+}
+
+#btnContinue:pressed {
+    -fx-background-color: #3a77ff;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 4, 0.0, 0, 1);
+}
+
+#txtHost, #txtPort, #txtUser, #password,
+#txtAreaAddress, #choiceBoxAuth, #choiceBoxSavePwd, #comboBoxDB {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #3a77ff;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: gray;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+

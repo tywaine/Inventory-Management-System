@@ -1,5 +1,5 @@
 package com.inventorymanagementsystem;
-import com.inventorymanagementsystem.Models.Model;
+import com.inventorymanagementsystem.model.Model;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
